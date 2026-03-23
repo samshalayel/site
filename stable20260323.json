@@ -1,0 +1,260 @@
+{
+  "nodes": [
+    {
+      "id": "group-s0-1774295294195-7vpc",
+      "type": "group",
+      "position": {
+        "x": 90,
+        "y": -825
+      },
+      "style": {
+        "width": 1809,
+        "height": 953,
+        "zIndex": -1
+      },
+      "data": {
+        "label": "S0"
+      },
+      "draggable": true,
+      "selectable": true,
+      "width": 1809,
+      "height": 953,
+      "selected": true,
+      "positionAbsolute": {
+        "x": 90,
+        "y": -825
+      },
+      "dragging": false
+    },
+    {
+      "id": "stage-0-1",
+      "type": "stage-0",
+      "data": {
+        "group": "S0",
+        "label": "Stage 0 — Problem / Technical Lock",
+        "description": "نظام إدارة تذاكر الدعم الفني مبني بتقنيات قديمة ويعاني من مشاكل جوهرية: الداشبورد يظهر أرقام خاطئة وغير دقيقة (لا يُعرف عدد الطلبات المنجزة بدقة)، التصنيفات مهلهلة وغير منظمة، يتم إغلاق الطلبات دون موافقة المستفيد على الاستلام، لا يتم تسجيل السيريال نمبر للأجهزة (مثال: 5 طلبات لجهاز سونار بدون تحديد أي جهاز تم صيانته)، كثرة التعليق وعدم الحفظ، أخطاء السيرفر المتكررة، وعدم توفر النظام بشكل مستقر. كل ذلك يؤدي إلى شكاوى مستمرة من المستخدمين وفقدان الثقة في النظام.\n*********************************************************************",
+        "aiPercentage": 5,
+        "humanPercentage": 95,
+        "aiResponsibilities": [
+          "استخلاص أنماط الأعطال المتكررة",
+          "تصنيف المشاكل (بيانات - إجراءات - تقنية - تجربة مستخدم)"
+        ],
+        "humanResponsibilities": [
+          "تأكيد دقة وصف المشكلة من الواقع",
+          "تحديد حجم التأثير على العمليات اليومية",
+          "تحديد الأولوية الاستراتيجية",
+          "تعريف ما هو خارج النطاق",
+          "اعتماد الصياغة النهائية والتوقيع"
+        ],
+        "stageNumber": 0,
+        "restrictions": [
+          "لا حلول تنفيذية",
+          "لا API",
+          "لا UI",
+          "لا DB Schema",
+          "لا Architecture Stack",
+          "لا CRUD",
+          "لا Code"
+        ],
+        "customFields": {
+          "impactAreas": [
+            "دقة التقارير والإحصائيات",
+            "حوكمة إجراءات الإغلاق",
+            "تتبع الأجهزة والأصول",
+            "استقرار النظام وتوفره",
+            "رضا المستخدمين والفريق التقني"
+          ],
+          "riskLevel": "مرتفع جداً",
+          "problemNature": "تقني + إجرائي + حوكمة بيانات + استقرار"
+        }
+      },
+      "position": {
+        "x": 40,
+        "y": 90
+      },
+      "width": 300,
+      "height": 407,
+      "parentId": "group-s0-1774295294195-7vpc",
+      "extent": "parent",
+      "selected": false,
+      "positionAbsolute": {
+        "x": 180,
+        "y": -675
+      },
+      "dragging": false
+    },
+    {
+      "id": "insight-node-2",
+      "type": "insight-node",
+      "data": {
+        "group": "S0",
+        "label": "Insight",
+        "description": "المشكلة ليست مجرد أعطال تقنية متفرقة، بل فقدان كامل للضبط المؤسسي: غياب حوكمة البيانات، غياب ضوابط إغلاق الطلبات، ضعف موثوقية التقارير، وعدم استقرار النظام. هذا يؤدي إلى تضارب الأرقام، صعوبة تتبع الأجهزة، وفقدان ثقة المستخدمين."
+      },
+      "position": {
+        "x": 220,
+        "y": 555
+      },
+      "width": 300,
+      "height": 336,
+      "parentId": "group-s0-1774295294195-7vpc",
+      "extent": "parent",
+      "selected": false,
+      "positionAbsolute": {
+        "x": 390,
+        "y": -150
+      },
+      "dragging": false
+    },
+    {
+      "id": "outcome-node-3",
+      "type": "outcome-node",
+      "data": {
+        "group": "S0",
+        "label": "Outcome",
+        "description": "صياغة تعريف واضح ومتفق عليه: نظام إدارة تذاكر الدعم الفني غير موثوق من ناحية البيانات، الإجراءات، والاستقرار التقني، مما يسبب تضارب الأرقام، صعوبة تتبع الأجهزة، وشكاوى مستمرة من المستخدمين."
+      },
+      "position": {
+        "x": 550,
+        "y": 150
+      },
+      "width": 300,
+      "height": 318,
+      "parentId": "group-s0-1774295294195-7vpc",
+      "extent": "parent",
+      "selected": false,
+      "positionAbsolute": {
+        "x": 690,
+        "y": -615
+      },
+      "dragging": false
+    },
+    {
+      "id": "direction-node-4",
+      "type": "direction-node",
+      "data": {
+        "group": "S0",
+        "label": "Direction",
+        "description": "يجب التعامل مع المشكلة كفقدان ضبط مؤسسي شامل (بيانات + إجراءات + استقرار) وليس مجرد تحسين تقني سطحي. يجب تثبيت هذا التعريف قبل أي تفكير في إعادة بناء أو تطوير."
+      },
+      "position": {
+        "x": 925,
+        "y": 255
+      },
+      "width": 300,
+      "height": 318,
+      "parentId": "group-s0-1774295294195-7vpc",
+      "extent": "parent",
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1065,
+        "y": -510
+      },
+      "dragging": false
+    },
+    {
+      "id": "gate-problem-5",
+      "type": "gate-problem",
+      "data": {
+        "group": "S0",
+        "label": "S0 Blocking Gate",
+        "description": "لا يُسمح بالانتقال إلى أي مرحلة لاحقة قبل الاتفاق الكامل أن المشكلة الجوهرية هي فقدان الضبط المؤسسي في نظام إدارة التذاكر (دقة البيانات + حوكمة الإجراءات + استقرار النظام).",
+        "gateType": "problem",
+        "decisionAuthority": "Human Only",
+        "gateStatus": "pending",
+        "aiPercentage": 0,
+        "humanPercentage": 100,
+        "gateChecklist": [
+          "هل تم الاتفاق أن الأرقام في الداشبورد غير موثوقة؟",
+          "هل تم تأكيد وجود خلل في آلية إغلاق الطلبات؟",
+          "هل تم الإقرار بغياب تتبع السيريال نمبر للأجهزة؟",
+          "هل تم توثيق مشاكل الاستقرار (تعليق، عدم حفظ، سيرفر إيرور)؟",
+          "هل تم تحديد مستوى التأثير على رضا المستخدمين والفريق التقني؟",
+          "هل تم تحديد ما هو خارج النطاق؟"
+        ]
+      },
+      "position": {
+        "x": 865,
+        "y": 675
+      },
+      "width": 904,
+      "height": 237,
+      "parentId": "group-s0-1774295294195-7vpc",
+      "extent": "parent",
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1005,
+        "y": -90
+      },
+      "dragging": false
+    },
+    {
+      "id": "evidence-node-7",
+      "type": "evidence-node",
+      "data": {
+        "group": "S0",
+        "label": "Evidence",
+        "mandatory": true,
+        "description": "وصف تفصيلي من صاحب النظام يشمل: أخطاء الداشبورد، تصنيفات مهلهلة، إغلاق بدون موافقة، عدم تسجيل السيريال نمبر، كثرة التعليق وعدم الحفظ، أخطاء السيرفر، وشكاوى المستخدمين من عدم التوفر.",
+        "evidenceKey": "s0_support_ticket_pack",
+        "justification": "المشكلة موثقة نصياً من المستخدم الفعلي وتحتوي على أمثلة واقعية مباشرة.",
+        "owner": "مدير فريق الدعم الفني"
+      },
+      "position": {
+        "x": 1300,
+        "y": 80
+      },
+      "width": 320,
+      "height": 353,
+      "parentId": "group-s0-1774295294195-7vpc",
+      "extent": "parent"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-s0-insight",
+      "type": "custom",
+      "source": "stage-0-1",
+      "target": "insight-node-2"
+    },
+    {
+      "id": "e-insight-outcome",
+      "type": "custom",
+      "source": "insight-node-2",
+      "target": "outcome-node-3"
+    },
+    {
+      "id": "e-outcome-direction",
+      "type": "custom",
+      "source": "outcome-node-3",
+      "target": "direction-node-4"
+    },
+    {
+      "id": "e-direction-gate",
+      "type": "custom",
+      "source": "direction-node-4",
+      "target": "gate-problem-5"
+    },
+    {
+      "id": "e-evidence-gate",
+      "type": "custom",
+      "source": "evidence-node-7",
+      "target": "gate-problem-5",
+      "label": "evidence"
+    }
+  ],
+  "evidence": [
+    {
+      "name": "وصف المشكلة من صاحب النظام"
+    },
+    {
+      "name": "أمثلة على أخطاء الداشبورد"
+    },
+    {
+      "name": "حالات إغلاق بدون موافقة"
+    },
+    {
+      "name": "أمثلة عدم تسجيل السيريال نمبر"
+    }
+  ]
+}
