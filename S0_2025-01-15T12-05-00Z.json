@@ -1,0 +1,157 @@
+{
+  "nodes": [
+    {
+      "id": "group-s0-20250115-a1b2",
+      "type": "group",
+      "data": { "label": "S0" },
+      "position": { "x": 150, "y": -705 },
+      "width": 1697,
+      "height": 1100,
+      "style": { "width": 1697, "height": 1100, "zIndex": -1 }
+    },
+    {
+      "id": "stage-0-1",
+      "type": "stage-0",
+      "data": {
+        "group": "S0",
+        "label": "Stage 0 — Problem / Technical Lock",
+        "description": "نظام إدارة تذاكر الدعم الفني مبني بتقنيات قديمة يعاني من بيانات غير دقيقة في لوحة التحكم، وتصنيفات مهلهلة، وإغلاق طلبات دون موافقة الطالب، مع غياب تتبع الأجهزة بالأرقام التسلسلية، وأعطال متكررة في الخادم تؤدي إلى تعليق النظام وعدم حفظ البيانات وعدم توفره في جميع الأوقات.",
+        "aiPercentage": 0,
+        "humanPercentage": 100,
+        "aiResponsibilities": [],
+        "humanResponsibilities": [],
+        "stageNumber": 0,
+        "restrictions": [],
+        "customFields": {}
+      },
+      "position": { "x": 15, "y": 60 },
+      "width": 300,
+      "height": 388,
+      "parentId": "group-s0-20250115-a1b2",
+      "extent": "parent"
+    },
+    {
+      "id": "insight-node-2",
+      "type": "insight-node",
+      "data": {
+        "group": "S0",
+        "label": "Insight",
+        "description": "السبب الجذري يتمثل في تقادم التقنيات المستخدمة وضعف البنية التحتية للخادم، مع غياب آليات إلزامية لإدخال البيانات الأساسية كالأرقام التسلسلية وإقرار موافقة الطالب، مما أدى إلى تراكم الأخطاء وانهيار الموثوقية التشغيلية."
+      },
+      "position": { "x": 210, "y": 300 },
+      "width": 300,
+      "height": 336,
+      "parentId": "group-s0-20250115-a1b2",
+      "extent": "parent"
+    },
+    {
+      "id": "outcome-node-3",
+      "type": "outcome-node",
+      "data": {
+        "group": "S0",
+        "label": "Outcome",
+        "description": "الحصول على نظام موثوق تعرض فيه بيانات دقيقة عن حالة الطلبات، مع تتبع كامل للأجهزة المصانة، وإلزامية موافقة الطالب قبل إغلاق أي طلب، مع ضمان توفر النظام بشكل مستمر للجميع."
+      },
+      "position": { "x": 570, "y": 100 },
+      "width": 300,
+      "height": 318,
+      "parentId": "group-s0-20250115-a1b2",
+      "extent": "parent"
+    },
+    {
+      "id": "direction-node-4",
+      "type": "direction-node",
+      "data": {
+        "group": "S0",
+        "label": "Direction",
+        "description": "تأهيل البنية التحتية، وتوحيد آلية إدخال البيانات الأساسية، وفرض إجراء موافقة الطالب كشرط للإغلاق، مع تحسين استقرار النظام وتوفره."
+      },
+      "position": { "x": 915, "y": 240 },
+      "width": 300,
+      "height": 318,
+      "parentId": "group-s0-20250115-a1b2",
+      "extent": "parent"
+    },
+    {
+      "id": "gate-problem-5",
+      "type": "gate-problem",
+      "data": {
+        "group": "S0",
+        "label": "S0 Blocking Gate",
+        "description": "",
+        "gateType": "problem",
+        "decisionAuthority": "Human Only",
+        "gateStatus": "pending",
+        "aiPercentage": 0,
+        "humanPercentage": 100,
+        "gateChecklist": [
+          "Problem clearly stated",
+          "Root cause plausibly identified",
+          "Outcome is non-technical",
+          "Direction stays non-technical",
+          "Evidence attached"
+        ]
+      },
+      "position": { "x": 1095, "y": 580 },
+      "width": 904,
+      "height": 237,
+      "parentId": "group-s0-20250115-a1b2",
+      "extent": "parent"
+    },
+    {
+      "id": "evidence-node-7",
+      "type": "evidence-node",
+      "data": {
+        "group": "S0",
+        "label": "Evidence",
+        "mandatory": true,
+        "description": "شكاوى المستخدمين المتكررة، وأرقام خاطئة في لوحة التحكم، وطلبات متعددة لنفس الجهاز بدون رقم تسلسلي، وأخطاء الخادم المتكررة التي تؤدي لتعليق النظام.",
+        "evidenceKey": "repeated-complaints",
+        "justification": "المستخدمون يشتكون مباشرة من عدم التوفر والأخطاء والبيانات غيرالموثوقة.",
+        "owner": "user"
+      },
+      "position": { "x": 1320, "y": 80 },
+      "width": 320,
+      "height": 353,
+      "parentId": "group-s0-20250115-a1b2",
+      "extent": "parent"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-s0-insight",
+      "type": "custom",
+      "source": "stage-0-1",
+      "target": "insight-node-2"
+    },
+    {
+      "id": "e-insight-outcome",
+      "type": "custom",
+      "source": "insight-node-2",
+      "target": "outcome-node-3"
+    },
+    {
+      "id": "e-outcome-direction",
+      "type": "custom",
+      "source": "outcome-node-3",
+      "target": "direction-node-4"
+    },
+    {
+      "id": "e-direction-gate",
+      "type": "custom",
+      "source": "direction-node-4",
+      "target": "gate-problem-5"
+    },
+    {
+      "id": "e-evidence-gate",
+      "type": "custom",
+      "source": "evidence-node-7",
+      "target": "gate-problem-5",
+      "label": "evidence"
+    }
+  ],
+  "evidence": [
+    { "name": "شكاوى المستخدمين والأعطال المتكررة" }
+  ],
+  "exportedAt": "2025-01-15T12:05:00.000Z"
+}
