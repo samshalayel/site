@@ -1,0 +1,157 @@
+{
+  "nodes": [
+    {
+      "id": "group-s0-20250116-school",
+      "type": "group",
+      "data": { "label": "S0" },
+      "position": { "x": 150, "y": -705 },
+      "width": 1697,
+      "height": 1100,
+      "style": { "width": 1697, "height": 1100, "zIndex": -1 }
+    },
+    {
+      "id": "stage-0-1",
+      "type": "stage-0",
+      "data": {
+        "group": "S0",
+        "label": "Stage 0 — Problem / Technical Lock",
+        "description": "غياب نظام مدرسي متكامل يربط بين إدارة الطلاب والمدرسين والصفوف والمواد الدراسية، مع تسجيل الحضور والغياب، وإدارة الاختبارات والواجبات، والمهام الإدارية كالانتقالات والرسوم وتوقف القيد. العملية الحالية تفتقر لتوحيد يجمع هذه الجوانب المتداخلة في مسار واحد متسق.",
+        "aiPercentage": 0,
+        "humanPercentage": 100,
+        "aiResponsibilities": [],
+        "humanResponsibilities": [],
+        "stageNumber": 0,
+        "restrictions": [],
+        "customFields": {}
+      },
+      "position": { "x": 15, "y": 60 },
+      "width": 300,
+      "height": 388,
+      "parentId": "group-s0-20250116-school",
+      "extent": "parent"
+    },
+    {
+      "id": "insight-node-2",
+      "type": "insight-node",
+      "data": {
+        "group": "S0",
+        "label": "Insight",
+        "description": "السبب الجذري: تفرق العمليات المدرسية بين جوانب دراسية وإدارية متعددة بدون إطار واحد يجمعها، مما يؤدي لصعوبة التتبع وفقدان الرؤية الشاملة لحالة الطالب الأكاديمية والإدارية معًا."
+      },
+      "position": { "x": 210, "y": 300 },
+      "width": 300,
+      "height": 336,
+      "parentId": "group-s0-20250116-school",
+      "extent": "parent"
+    },
+    {
+      "id": "outcome-node-3",
+      "type": "outcome-node",
+      "data": {
+        "group": "S0",
+        "label": "Outcome",
+        "description": "إطار موحد يشمل كل العمليات المدرسية الأساسية، بحيث يكون لكل طالب مسار واضح من القيد حتى التخرج، مع إمكانية متابعة الحضور والغياب والاختبارات والواجبات والرسوم وحالة القيد في مكان واحد."
+      },
+      "position": { "x": 570, "y": 100 },
+      "width": 300,
+      "height": 318,
+      "parentId": "group-s0-20250116-school",
+      "extent": "parent"
+    },
+    {
+      "id": "direction-node-4",
+      "type": "direction-node",
+      "data": {
+        "group": "S0",
+        "label": "Direction",
+        "description": "توحيد المسار الإداري والأكاديمي للطالب في إطار متكامل، مع تحديد العلاقات بين الكيانات الأساسية (طالب، فصل، مادة، مدرس، رسوم) وضمان تسجيل كل ما يؤثر على حالة الطالب في مكان واحد."
+      },
+      "position": { "x": 915, "y": 240 },
+      "width": 300,
+      "height": 318,
+      "parentId": "group-s0-20250116-school",
+      "extent": "parent"
+    },
+    {
+      "id": "gate-problem-5",
+      "type": "gate-problem",
+      "data": {
+        "group": "S0",
+        "label": "S0 Blocking Gate",
+        "description": "",
+        "gateType": "problem",
+        "decisionAuthority": "Human Only",
+        "gateStatus": "pending",
+        "aiPercentage": 0,
+        "humanPercentage": 100,
+        "gateChecklist": [
+          "Problem clearly stated",
+          "Root cause plausibly identified",
+          "Outcome is non-technical",
+          "Direction stays non-technical",
+          "Evidence attached"
+        ]
+      },
+      "position": { "x": 1095, "y": 580 },
+      "width": 904,
+      "height": 237,
+      "parentId": "group-s0-20250116-school",
+      "extent": "parent"
+    },
+    {
+      "id": "evidence-node-7",
+      "type": "evidence-node",
+      "data": {
+        "group": "S0",
+        "label": "Evidence",
+        "mandatory": true,
+        "description": "وصف تفصيلي للكيانات المطلوب إدارتها (طلبة، مدرسين، صفوف، مواد، اختبارات، واجبات، حضور، غياب، رسوم) مع صياغة واضحة لتداخل هذه الجوانب في العمل المدرسي اليومي.",
+        "evidenceKey": "scope-description",
+        "justification": "النص يحدد نطاقًا وظيفيًا واضحًا يشمل الجوانب الدراسية والإدارية المترابطة، مما يدعم الحاجة لإطار متكامل.",
+        "owner": "user"
+      },
+      "position": { "x": 1320, "y": 80 },
+      "width": 320,
+      "height": 353,
+      "parentId": "group-s0-20250116-school",
+      "extent": "parent"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-s0-insight",
+      "type": "custom",
+      "source": "stage-0-1",
+      "target": "insight-node-2"
+    },
+    {
+      "id": "e-insight-outcome",
+      "type": "custom",
+      "source": "insight-node-2",
+      "target": "outcome-node-3"
+    },
+    {
+      "id": "e-outcome-direction",
+      "type": "custom",
+      "source": "outcome-node-3",
+      "target": "direction-node-4"
+    },
+    {
+      "id": "e-direction-gate",
+      "type": "custom",
+      "source": "direction-node-4",
+      "target": "gate-problem-5"
+    },
+    {
+      "id": "e-evidence-gate",
+      "type": "custom",
+      "source": "evidence-node-7",
+      "target": "gate-problem-5",
+      "label": "evidence"
+    }
+  ],
+  "evidence": [
+    { "name": "وصف النطاق المدرسي المتكامل" }
+  ],
+  "exportedAt": "2025-01-16T10:35:00.000Z"
+}
