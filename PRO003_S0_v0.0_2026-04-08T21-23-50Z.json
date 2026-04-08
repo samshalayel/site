@@ -1,0 +1,157 @@
+{
+  "nodes": [
+    {
+      "id": "group-s0-20260408-a7c3",
+      "type": "group",
+      "data": { "label": "S0" },
+      "position": { "x": 150, "y": -705 },
+      "width": 1697,
+      "height": 1100,
+      "style": { "width": 1697, "height": 1100, "zIndex": -1 }
+    },
+    {
+      "id": "stage-0-1",
+      "type": "stage-0",
+      "data": {
+        "group": "S0",
+        "label": "Stage 0 — Problem / Technical Lock",
+        "description": "نظام إدارة تذاكر الدعم الفني مبني بتقنيات قديمة يعاني من: لوحة معلومات تعرض أرقامًا خاطئة لعدد الطلبات المنجزة، تصنيفات مهلهلة وغير دقيقة، إغلاق طلبات دون موافقة الطالب على الاستلام، غياب تسجيل الرقم التسلسلي للأجهزة مما يؤدي لطلبات متكررة لنفس الجهاز دون تتبع، تعليق متكرر وعدم حفظ البيانات، أخطاء سيرفر، وعدم توفر النظام بشكل مستمر مع شكاوى المستخدمين المستمرة.",
+        "aiPercentage": 0,
+        "humanPercentage": 100,
+        "aiResponsibilities": [],
+        "humanResponsibilities": [],
+        "stageNumber": 0,
+        "restrictions": [],
+        "customFields": {}
+      },
+      "position": { "x": 15, "y": 60 },
+      "width": 300,
+      "height": 388,
+      "parentId": "group-s0-20260408-a7c3",
+      "extent": "parent"
+    },
+    {
+      "id": "insight-node-2",
+      "type": "insight-node",
+      "data": {
+        "group": "S0",
+        "label": "Insight",
+        "description": "السبب الجذري: نظام مبني بتقنيات قديمة غير قادرة على تلبية متطلبات العمل الحالية، مع غياب هيكلة بيانات سليمة لتتبع الأجهزة وسير عمل غير محكم لإغلاق الطلبات. القيود التقنية القديمة تمنع التسجيل الدقيق وتسبب تكرار الطلبات وفقدان التتبع."
+      },
+      "position": { "x": 210, "y": 300 },
+      "width": 300,
+      "height": 336,
+      "parentId": "group-s0-20260408-a7c3",
+      "extent": "parent"
+    },
+    {
+      "id": "outcome-node-3",
+      "type": "outcome-node",
+      "data": {
+        "group": "S0",
+        "label": "Outcome",
+        "description": "نظام إدارة تذاكر يعرض بيانات دقيقة ومحدثة باستمرار، تصنيفات واضحة ومنظمة، إغلاق طلبات بموافقة الطالب فقط، تتبع الأجهزة بالرقم التسلسلي لمنع التكرار، استقرار في الأداء مع حفظ البيانات، وتوفر النظام في كل وقت."
+      },
+      "position": { "x": 570, "y": 100 },
+      "width": 300,
+      "height": 318,
+      "parentId": "group-s0-20260408-a7c3",
+      "extent": "parent"
+    },
+    {
+      "id": "direction-node-4",
+      "type": "direction-node",
+      "data": {
+        "group": "S0",
+        "label": "Direction",
+        "description": "إعادة تقييم النظام الحالي وتحديد جدوى الإصلاح التدريجي مقابل الاستبدال، توحيد سير العمل وإجراءات التسجيل والإغلاق، تنظيم قاعدة البيانات لتتبع الأجهزة بالسيريال، وضمان استقرار التوفر."
+      },
+      "position": { "x": 915, "y": 240 },
+      "width": 300,
+      "height": 318,
+      "parentId": "group-s0-20260408-a7c3",
+      "extent": "parent"
+    },
+    {
+      "id": "gate-problem-5",
+      "type": "gate-problem",
+      "data": {
+        "group": "S0",
+        "label": "S0 Blocking Gate",
+        "description": "",
+        "gateType": "problem",
+        "decisionAuthority": "Human Only",
+        "gateStatus": "pending",
+        "aiPercentage": 0,
+        "humanPercentage": 100,
+        "gateChecklist": [
+          "Problem clearly stated",
+          "Root cause plausibly identified",
+          "Outcome is non-technical",
+          "Direction stays non-technical",
+          "Evidence attached"
+        ]
+      },
+      "position": { "x": 1095, "y": 580 },
+      "width": 904,
+      "height": 237,
+      "parentId": "group-s0-20260408-a7c3",
+      "extent": "parent"
+    },
+    {
+      "id": "evidence-node-7",
+      "type": "evidence-node",
+      "data": {
+        "group": "S0",
+        "label": "Evidence",
+        "mandatory": true,
+        "description": "شكاوى المستخدمين المتكررة من النظام، تكرار طلبات متعددة لنفس الجهاز بسبب غياب السيريال، تعليق النظام المتكرر وعدم الحفظ، أخطاء السيرفر، وإغلاق طلبات دون موافقة رسمية.",
+        "evidenceKey": "user-complaints",
+        "justification": "شكاوى موثقة من المستخدمين وتكرار الطلبات على نفس الجهاز تشير لفشل واضح في التتبع والتوثيق",
+        "owner": "user"
+      },
+      "position": { "x": 1320, "y": 80 },
+      "width": 320,
+      "height": 353,
+      "parentId": "group-s0-20260408-a7c3",
+      "extent": "parent"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-s0-insight",
+      "type": "custom",
+      "source": "stage-0-1",
+      "target": "insight-node-2"
+    },
+    {
+      "id": "e-insight-outcome",
+      "type": "custom",
+      "source": "insight-node-2",
+      "target": "outcome-node-3"
+    },
+    {
+      "id": "e-outcome-direction",
+      "type": "custom",
+      "source": "outcome-node-3",
+      "target": "direction-node-4"
+    },
+    {
+      "id": "e-direction-gate",
+      "type": "custom",
+      "source": "direction-node-4",
+      "target": "gate-problem-5"
+    },
+    {
+      "id": "e-evidence-gate",
+      "type": "custom",
+      "source": "evidence-node-7",
+      "target": "gate-problem-5",
+      "label": "evidence"
+    }
+  ],
+  "evidence": [
+    { "name": "شكاوى المستخدمين" }
+  ],
+  "exportedAt": "2026-04-08T21:23:50.000Z"
+}
