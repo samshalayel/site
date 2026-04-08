@@ -1,0 +1,185 @@
+{
+  "nodes": [
+    {
+      "id": "group-s2-20260408-214456-ABCDEF",
+      "type": "group",
+      "data": { "label": "S2" },
+      "position": { "x": 150, "y": -705 },
+      "width": 1697,
+      "height": 1250,
+      "style": { "width": 1697, "height": 1250, "zIndex": -1 }
+    },
+    {
+      "id": "stage-2-1",
+      "type": "stage-2",
+      "data": {
+        "group": "S2",
+        "label": "Stage 2 — Architecture Spine Lock",
+        "description": "تصميم العمود الفقري المعماري للنظام على مستوى conceptual و سازماني.",
+        "aiPercentage": 0,
+        "humanPercentage": 100,
+        "stageNumber": 2,
+        "restrictions": [],
+        "customFields": {}
+      },
+      "position": { "x": 15, "y": 60 },
+      "width": 300,
+      "height": 388,
+      "parentId": "group-s2-20260408-214456-ABCDEF",
+      "extent": "parent"
+    },
+    {
+      "id": "domains-node-2",
+      "type": "domains-node",
+      "data": {
+        "group": "S2",
+        "label": "Domains",
+        "items": [
+          "domain_1",
+          "domain_2",
+          "domain_3"
+        ]
+      },
+      "position": { "x": 250, "y": 80 },
+      "width": 300,
+      "height": 340,
+      "parentId": "group-s2-20260408-214456-ABCDEF",
+      "extent": "parent"
+    },
+    {
+      "id": "components-node-3",
+      "type": "components-node",
+      "data": {
+        "group": "S2",
+        "label": "Components",
+        "items": [
+          "component_1",
+          "component_2",
+          "component_3"
+        ]
+      },
+      "position": { "x": 620, "y": 80 },
+      "width": 300,
+      "height": 340,
+      "parentId": "group-s2-20260408-214456-ABCDEF",
+      "extent": "parent"
+    },
+    {
+      "id": "interactions-node-4",
+      "type": "interactions-node",
+      "data": {
+        "group": "S2",
+        "label": "Interactions",
+        "items": [
+          "interaction_1",
+          "interaction_2",
+          "interaction_3"
+        ]
+      },
+      "position": { "x": 980, "y": 80 },
+      "width": 300,
+      "height": 340,
+      "parentId": "group-s2-20260408-214456-ABCDEF",
+      "extent": "parent"
+    },
+    {
+      "id": "constraints-node-5",
+      "type": "constraints-node",
+      "data": {
+        "group": "S2",
+        "label": "Constraints",
+        "items": [
+          "constraint_1",
+          "constraint_2",
+          "constraint_3"
+        ]
+      },
+      "position": { "x": 1330, "y": 80 },
+      "width": 300,
+      "height": 340,
+      "parentId": "group-s2-20260408-214456-ABCDEF",
+      "extent": "parent"
+    },
+    {
+      "id": "decisions-node-6",
+      "type": "decisions-node",
+      "data": {
+        "group": "S2",
+        "label": "Architecture Decisions",
+        "items": [
+          "decision_1",
+          "decision_2",
+          "decision_3"
+        ]
+      },
+      "position": { "x": 500, "y": 500 },
+      "width": 360,
+      "height": 320,
+      "parentId": "group-s2-20260408-214456-ABCDEF",
+      "extent": "parent"
+    },
+    {
+      "id": "gate-architecture-7",
+      "type": "gate-architecture",
+      "data": {
+        "group": "S2",
+        "label": "S2 Blocking Gate",
+        "gateType": "architecture",
+        "decisionAuthority": "Human Only",
+        "gateStatus": "pending",
+        "gateChecklist": [
+          "Domains are clearly defined",
+          "Components are non-technical",
+          "Interactions are clear",
+          "Constraints are explicit",
+          "Architecture decisions are documented",
+          "No implementation leakage"
+        ]
+      },
+      "position": { "x": 980, "y": 520 },
+      "width": 760,
+      "height": 250,
+      "parentId": "group-s2-20260408-214456-ABCDEF",
+      "extent": "parent"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-s2-domains",
+      "type": "custom",
+      "source": "stage-2-1",
+      "target": "domains-node-2"
+    },
+    {
+      "id": "e-domains-components",
+      "type": "custom",
+      "source": "domains-node-2",
+      "target": "components-node-3"
+    },
+    {
+      "id": "e-components-interactions",
+      "type": "custom",
+      "source": "components-node-3",
+      "target": "interactions-node-4"
+    },
+    {
+      "id": "e-interactions-constraints",
+      "type": "custom",
+      "source": "interactions-node-4",
+      "target": "constraints-node-5"
+    },
+    {
+      "id": "e-constraints-decisions",
+      "type": "custom",
+      "source": "constraints-node-5",
+      "target": "decisions-node-6"
+    },
+    {
+      "id": "e-decisions-gate",
+      "type": "custom",
+      "source": "decisions-node-6",
+      "target": "gate-architecture-7"
+    }
+  ],
+  "exportedAt": "2026-04-08T21:44:56.000Z"
+}
