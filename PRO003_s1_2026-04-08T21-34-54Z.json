@@ -1,0 +1,171 @@
+{
+  "nodes": [
+    {
+      "id": "group-s1-20260408-b8d4",
+      "type": "group",
+      "data": { "label": "S1" },
+      "position": { "x": 150, "y": -705 },
+      "width": 1697,
+      "height": 1100,
+      "style": { "width": 1697, "height": 1100, "zIndex": -1 }
+    },
+    {
+      "id": "stage-1-1",
+      "type": "stage-1",
+      "data": {
+        "group": "S1",
+        "label": "Stage 1 — Product Shape Lock",
+        "description": "تحديد شكل نظام إدارة تذاكر الدعم الفني كمنتج مفهومي، تعريف الجهات المتفاعلة معه، وحدداته الأساسية، وحدود نطاقه بدون الدخول في أي تفاصيل تقنية أو معمارية.",
+        "aiPercentage": 0,
+        "humanPercentage": 100,
+        "stageNumber": 1,
+        "restrictions": [],
+        "customFields": {}
+      },
+      "position": { "x": 15, "y": 60 },
+      "width": 300,
+      "height": 388,
+      "parentId": "group-s1-20260408-b8d4",
+      "extent": "parent"
+    },
+    {
+      "id": "product-node-2",
+      "type": "product-node",
+      "data": {
+        "group": "S1",
+        "label": "Product",
+        "description": "نظام إدارة تذاكر الدعم الفني - منصة لتتبع وإدارة طلبات الدعم التقني من البداية حتى الإنجاز مع ضمان الدقة في البيانات وموافقة المستخدم على الإغلاق وتتبع الأجهزة"
+      },
+      "position": { "x": 250, "y": 100 },
+      "width": 300,
+      "height": 300,
+      "parentId": "group-s1-20260408-b8d4",
+      "extent": "parent"
+    },
+    {
+      "id": "actors-node-3",
+      "type": "actors-node",
+      "data": {
+        "group": "S1",
+        "label": "Actors",
+        "items": [
+          "المستخدمون طالبو الدعم",
+          "فريق الدعم الفني",
+          "مدير النظام",
+          "المشرف الإداري",
+          "قسم الصيانة"
+        ]
+      },
+      "position": { "x": 600, "y": 80 },
+      "width": 300,
+      "height": 300,
+      "parentId": "group-s1-20260408-b8d4",
+      "extent": "parent"
+    },
+    {
+      "id": "modules-node-4",
+      "type": "modules-node",
+      "data": {
+        "group": "S1",
+        "label": "Modules",
+        "items": [
+          "إنشاء التذاكر",
+          "تتبع الأجهزة بالسيريال",
+          "تصنيف الطلبات",
+          "سير العمل والموافقات",
+          "لوحة المعلومات",
+          "إدارة الإغلاق"
+        ]
+      },
+      "position": { "x": 950, "y": 200 },
+      "width": 300,
+      "height": 300,
+      "parentId": "group-s1-20260408-b8d4",
+      "extent": "parent"
+    },
+    {
+      "id": "boundaries-node-5",
+      "type": "boundaries-node",
+      "data": {
+        "group": "S1",
+        "label": "Boundaries",
+        "inScope": [
+          "إدارة تذاكر الدعم الفني",
+          "تتبع الأجهزة بالرقم التسلسلي",
+          "موافقة المستخدم على الإغلاق",
+          "تصنيفات دقيقة للطلبات",
+          "لوحة معلومات صحيحة",
+          "حفظ البيانات وضمان التوفر"
+        ],
+        "outScope": [
+          "إدارة المخزون العام",
+          "نظام الموارد البشرية",
+          "المحاسبة والفوترة",
+          "إدارة العقود",
+          "نظام البريد الإلكتروني"
+        ]
+      },
+      "position": { "x": 1300, "y": 100 },
+      "width": 300,
+      "height": 320,
+      "parentId": "group-s1-20260408-b8d4",
+      "extent": "parent"
+    },
+    {
+      "id": "gate-product-6",
+      "type": "gate-product",
+      "data": {
+        "group": "S1",
+        "label": "S1 Blocking Gate",
+        "gateType": "product",
+        "decisionAuthority": "Human Only",
+        "gateStatus": "pending",
+        "gateChecklist": [
+          "Product clearly defined",
+          "Scope bounded", 
+          "No technical leakage",
+          "Actors identified",
+          "Modules conceptual only"
+        ]
+      },
+      "position": { "x": 900, "y": 550 },
+      "width": 900,
+      "height": 250,
+      "parentId": "group-s1-20260408-b8d4",
+      "extent": "parent"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-s1-product",
+      "type": "custom",
+      "source": "stage-1-1",
+      "target": "product-node-2"
+    },
+    {
+      "id": "e-product-actors",
+      "type": "custom",
+      "source": "product-node-2",
+      "target": "actors-node-3"
+    },
+    {
+      "id": "e-actors-modules",
+      "type": "custom",
+      "source": "actors-node-3",
+      "target": "modules-node-4"
+    },
+    {
+      "id": "e-modules-boundaries",
+      "type": "custom",
+      "source": "modules-node-4",
+      "target": "boundaries-node-5"
+    },
+    {
+      "id": "e-boundaries-gate",
+      "type": "custom",
+      "source": "boundaries-node-5",
+      "target": "gate-product-6"
+    }
+  ],
+  "exportedAt": "2026-04-08T21:34:30.000Z"
+}
