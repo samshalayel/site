@@ -1,0 +1,157 @@
+{
+  "nodes": [
+    {
+      "id": "group-s0-20260424-281035",
+      "type": "group",
+      "data": { "label": "S0" },
+      "position": { "x": 150, "y": -705 },
+      "width": 1697,
+      "height": 1100,
+      "style": { "width": 1697, "height": 1100, "zIndex": -1 }
+    },
+    {
+      "id": "stage-0-1",
+      "type": "stage-0",
+      "data": {
+        "group": "S0",
+        "label": "Stage 0 — Problem / Technical Lock",
+        "description": "هو نظام ادارة تذاكر يدعم الدعم الفني القديم، يعاني من ادخال قديم برود اسامي وعدم توازن الخبرات، فلا يتوجب معالجة الطلبات بتفصيل وموقع وتنسيق في حين التعامل، ويعاني نظامنا من عدم توفر الاجهزة وعدم صحة الطلبات والتعليقات العديدة",
+        "aiPercentage": 0,
+        "humanPercentage": 100,
+        "aiResponsibilities": [],
+        "humanResponsibilities": [],
+        "stageNumber": 0,
+        "restrictions": [],
+        "customFields": {}
+      },
+      "position": { "x": 15, "y": 60 },
+      "width": 300,
+      "height": 388,
+      "parentId": "group-s0-20260424-281035",
+      "extent": "parent"
+    },
+    {
+      "id": "insight-node-2",
+      "type": "insight-node",
+      "data": {
+        "group": "S0",
+        "label": "Insight",
+        "description": "الغيب البيض الذي يسبب المشكلة هو انعدام التنظيم والاتساق في العمل المادري، ونقص في التخطيط والتنظيم للعمليات التوجيهية الادارية في تكوين وتوفير وتحديث الدعم الفنى والادارة المادريه"
+      },
+      "position": { "x": 210, "y": 300 },
+      "width": 300,
+      "height": 336,
+      "parentId": "group-s0-20260424-281035",
+      "extent": "parent"
+    },
+    {
+      "id": "outcome-node-3",
+      "type": "outcome-node",
+      "data": {
+        "group": "S0",
+        "label": "Outcome",
+        "description": "الخروجی المرغوبة هي توحيد العمل المدورى وتحسينه وتوجيهه وتحسين التنسيق"
+      },
+      "position": { "x": 570, "y": 100 },
+      "width": 300,
+      "height": 318,
+      "parentId": "group-s0-20260424-281035",
+      "extent": "parent"
+    },
+    {
+      "id": "direction-node-4",
+      "type": "direction-node",
+      "data": {
+        "group": "S0",
+        "label": "Direction",
+        "description": "الدالية الإصلاحية تتطلب من فريق العمل تخطيطاً وتنظيماً أكبر لتسطير عمل مدورى وعلى أساس تحديد المسؤوليات وإعادة توجيهها للعاملون في هذا النوع البادئ من العمل، وتحسين الاتساق وتوحيده وتعزيز ثقة العاملون والتوجيه وإعادة تأهيل التخطيط وتحسين تحليل المسؤولية وإدارة الأهداف بشكل شامل لتجنب أي متعة"
+      },
+      "position": { "x": 915, "y": 240 },
+      "width": 300,
+      "height": 318,
+      "parentId": "group-s0-20260424-281035",
+      "extent": "parent"
+    },
+    {
+      "id": "gate-problem-5",
+      "type": "gate-problem",
+      "data": {
+        "group": "S0",
+        "label": "S0 Blocking Gate",
+        "description": "",
+        "gateType": "problem",
+        "decisionAuthority": "Human Only",
+        "gateStatus": "pending",
+        "aiPercentage": 0,
+        "humanPercentage": 100,
+        "gateChecklist": [
+          "Problem clearly stated",
+          "Root cause plausibly identified",
+          "Outcome is non-technical",
+          "Direction stays non-technical",
+          "Evidence attached"
+        ]
+      },
+      "position": { "x": 1095, "y": 580 },
+      "width": 904,
+      "height": 237,
+      "parentId": "group-s0-20260424-281035",
+      "extent": "parent"
+    },
+    {
+      "id": "evidence-node-7",
+      "type": "evidence-node",
+      "data": {
+        "group": "S0",
+        "label": "Evidence",
+        "mandatory": true,
+        "description": "الدليل الواقعي هو التكرار المستمر للتعليقات والتأكيدات من الأشخاص المتعاملين مع النظام ، من أجل اثبات قيمة هذه التبليغات",
+        "evidenceKey": "tكرار التعليقات",
+        "justification": "لأننا قد قمنا العديد من المحاولات",
+        "owner": "user"
+      },
+      "position": { "x": 1320, "y": 80 },
+      "width": 320,
+      "height": 353,
+      "parentId": "group-s0-20260424-281035",
+      "extent": "parent"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-s0-insight",
+      "type": "custom",
+      "source": "stage-0-1",
+      "target": "insight-node-2"
+    },
+    {
+      "id": "e-insight-outcome",
+      "type": "custom",
+      "source": "insight-node-2",
+      "target": "outcome-node-3"
+    },
+    {
+      "id": "e-outcome-direction",
+      "type": "custom",
+      "source": "outcome-node-3",
+      "target": "direction-node-4"
+    },
+    {
+      "id": "e-direction-gate",
+      "type": "custom",
+      "source": "direction-node-4",
+      "target": "gate-problem-5"
+    },
+    {
+      "id": "e-evidence-gate",
+      "type": "custom",
+      "source": "evidence-node-7",
+      "target": "gate-problem-5",
+      "label": "evidence"
+    }
+  ],
+  "evidence": [
+    { "name": "دليل التكرار" }
+  ],
+  "exportedAt": "2026-04-24T19-16-59Z"
+}
