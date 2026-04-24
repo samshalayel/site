@@ -1,0 +1,31 @@
+{
+  "nodes": [
+    { ... },
+    {
+      "id": "gate-problem-5",
+      "type": "gate-problem",
+      "data": {
+        "group": "S0",
+        "label": "S0 Blocking Gate",
+        "description": "",
+        "gateType": "problem",
+        "decisionAuthority": "Human Only",
+        "gateStatus": "closed",
+        "aiPercentage": 0,
+        "humanPercentage": 100,
+        "gateChecklist": []
+      },
+      ...
+    }
+  ],
+  "edges": [
+    { ... },
+    {
+      "id": "e-direction-gate",
+      "type": "custom",
+      "source": "direction-node-4",
+      "target": "gate-problem-5"
+    }
+  ],
+  ...
+}
