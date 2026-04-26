@@ -1,0 +1,195 @@
+{
+  "nodes": [
+    {
+      "id": "group-s0-1777236351809-rca4",
+      "type": "group",
+      "position": {
+        "x": 125,
+        "y": -725
+      },
+      "style": {
+        "width": 1705,
+        "height": 877,
+        "zIndex": -1
+      },
+      "data": {
+        "label": "S0"
+      },
+      "draggable": true,
+      "selectable": true,
+      "width": 1705,
+      "height": 877
+    },
+    {
+      "id": "stage-0-1",
+      "type": "stage-0",
+      "data": {
+        "group": "S0",
+        "label": "Stage 0 — Problem / Technical Lock",
+        "description": "تسجيل الحضور والغياب بشكل يدوي في المدرسة يؤدي إلى أخطاء متكررة وتأخير في معرفة حالات الغياب، مما يسبب ارتباكًا بين المعلمين والإدارة.",
+        "aiPercentage": 91,
+        "humanPercentage": 9,
+        "aiResponsibilities": [],
+        "humanResponsibilities": [],
+        "stageNumber": 0,
+        "restrictions": [],
+        "customFields": {}
+      },
+      "position": {
+        "x": 40,
+        "y": 80
+      },
+      "width": 300,
+      "height": 251,
+      "parentId": "group-s0-1777236351809-rca4",
+      "extent": "parent",
+      "selected": true,
+      "dragging": false
+    },
+    {
+      "id": "insight-node-2",
+      "type": "insight-node",
+      "data": {
+        "group": "S0",
+        "label": "Insight",
+        "description": "يتكرر حدوث أخطاء لنقل البيانات، مما يؤثر سلبًا على معرفة الإدارة بحالات الغياب."
+      },
+      "position": {
+        "x": 250,
+        "y": 425
+      },
+      "width": 300,
+      "height": 278,
+      "parentId": "group-s0-1777236351809-rca4",
+      "extent": "parent",
+      "selected": false,
+      "positionAbsolute": {
+        "x": 375,
+        "y": -300
+      },
+      "dragging": false
+    },
+    {
+      "id": "outcome-node-3",
+      "type": "outcome-node",
+      "data": {
+        "group": "S0",
+        "label": "Outcome",
+        "description": "تقليل الأخطاء في تسجيل الحضور والغياب وتوفير متابعة واضحة للأهل يمكن أن يعزز الانضباط في المدرسة."
+      },
+      "position": {
+        "x": 595,
+        "y": 120
+      },
+      "width": 300,
+      "height": 299,
+      "parentId": "group-s0-1777236351809-rca4",
+      "extent": "parent"
+    },
+    {
+      "id": "direction-node-4",
+      "type": "direction-node",
+      "data": {
+        "group": "S0",
+        "label": "Direction",
+        "description": "توحيد الفهم بين المعلمين والإدارة ودعم وضوح العمليات اليومية."
+      },
+      "position": {
+        "x": 940,
+        "y": 260
+      },
+      "width": 300,
+      "height": 279,
+      "parentId": "group-s0-1777236351809-rca4",
+      "extent": "parent"
+    },
+    {
+      "id": "gate-problem-5",
+      "type": "gate-problem",
+      "data": {
+        "group": "S0",
+        "label": "S0 Blocking Gate",
+        "description": "الانتقال إلى S1 ممنوع قبل اعتماد المشكلة والسبب والأثر والدليل بشريًا.",
+        "gateType": "problem",
+        "decisionAuthority": "Human Only",
+        "gateStatus": "pending",
+        "aiPercentage": 0,
+        "humanPercentage": 100,
+        "gateChecklist": [
+          "Problem clearly stated",
+          "Root cause plausibly identified",
+          "Outcome remains non-technical",
+          "Direction stays non-technical",
+          "Evidence attached"
+        ]
+      },
+      "position": {
+        "x": 1120,
+        "y": 600
+      },
+      "width": 379,
+      "height": 237,
+      "parentId": "group-s0-1777236351809-rca4",
+      "extent": "parent"
+    },
+    {
+      "id": "evidence-node-7",
+      "type": "evidence-node",
+      "data": {
+        "group": "S0",
+        "label": "Evidence",
+        "mandatory": true,
+        "description": "وجود ارتباك بين المعلمين والإدارة نتيجة التأخير في معرفة حالات الغياب.",
+        "evidenceKey": "delayed-visibility",
+        "justification": "يظهر الارتباك في العمليات اليومية بسبب التأخر في معرفة حالات الغياب.",
+        "owner": "user"
+      },
+      "position": {
+        "x": 1345,
+        "y": 100
+      },
+      "width": 320,
+      "height": 314,
+      "parentId": "group-s0-1777236351809-rca4",
+      "extent": "parent"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-s0-insight",
+      "type": "custom",
+      "source": "stage-0-1",
+      "target": "insight-node-2"
+    },
+    {
+      "id": "e-insight-outcome",
+      "type": "custom",
+      "source": "insight-node-2",
+      "target": "outcome-node-3"
+    },
+    {
+      "id": "e-outcome-direction",
+      "type": "custom",
+      "source": "outcome-node-3",
+      "target": "direction-node-4"
+    },
+    {
+      "id": "e-direction-gate",
+      "type": "custom",
+      "source": "direction-node-4",
+      "target": "gate-problem-5"
+    },
+    {
+      "id": "e-evidence-gate",
+      "type": "custom",
+      "source": "evidence-node-7",
+      "target": "gate-problem-5",
+      "label": "evidence"
+    }
+  ],
+  "evidence": [
+    {
+      "name": "ارتباك بين المعلمين والإدارة"
+    }
+  ]
+}
