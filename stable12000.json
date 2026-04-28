@@ -1,0 +1,294 @@
+{
+  "nodes": [
+    {
+      "id": "group-pd-20260428-pro001",
+      "type": "group",
+      "data": {
+        "label": "PD — Problem Discovery"
+      },
+      "position": {
+        "x": 120,
+        "y": -600
+      },
+      "width": 1600,
+      "height": 1000,
+      "style": {
+        "width": 1600,
+        "height": 1000,
+        "zIndex": -1
+      },
+      "draggable": true,
+      "selectable": true,
+      "connectable": true,
+      "positionAbsolute": {
+        "x": 120,
+        "y": -600
+      }
+    },
+    {
+      "id": "pd-summary-1",
+      "type": "pd-summary-node",
+      "data": {
+        "label": "Summary",
+        "description": "في المدرسة يتم تسجيل الحضور والغياب يدويًا بين المعلمين والإدارة، مما يؤدي إلى أخطاء متكررة وتأخير في معرفة الحالات، وضعف في تواصل الأهل وصعوبة في الحصول على صورة يومية دقيقة."
+      },
+      "position": {
+        "x": 40,
+        "y": 80
+      },
+      "width": 300,
+      "height": 284,
+      "parentId": "group-pd-20260428-pro001",
+      "extent": "parent",
+      "draggable": true,
+      "selectable": true,
+      "connectable": true,
+      "positionAbsolute": {
+        "x": 160,
+        "y": -520
+      }
+    },
+    {
+      "id": "pd-actors-2",
+      "type": "pd-actors-node",
+      "data": {
+        "label": "Actors",
+        "items": [
+          "المعلم",
+          "إدارة المدرسة",
+          "الأهل"
+        ],
+        "points": [
+          "المعلم",
+          "إدارة المدرسة",
+          "الأهل",
+          "ggg"
+        ]
+      },
+      "position": {
+        "x": 420,
+        "y": 80
+      },
+      "width": 260,
+      "height": 318,
+      "parentId": "group-pd-20260428-pro001",
+      "extent": "parent",
+      "selected": true,
+      "dragging": false,
+      "draggable": true,
+      "selectable": true,
+      "connectable": true,
+      "positionAbsolute": {
+        "x": 540,
+        "y": -520
+      }
+    },
+    {
+      "id": "pd-goals-3",
+      "type": "pd-goals-node",
+      "data": {
+        "label": "Goals",
+        "items": [
+          "تسجيل دقيق للحضور والغياب",
+          "معرفة الحالة بشكل فوري",
+          "تحسين التواصل مع الأهل",
+          "إعطاء الإدارة رؤية يومية واضحة"
+        ]
+      },
+      "position": {
+        "x": 760,
+        "y": 80
+      },
+      "width": 260,
+      "height": 318,
+      "parentId": "group-pd-20260428-pro001",
+      "extent": "parent",
+      "draggable": true,
+      "selectable": true,
+      "connectable": true,
+      "positionAbsolute": {
+        "x": 880,
+        "y": -520
+      }
+    },
+    {
+      "id": "pd-pain-4",
+      "type": "pd-pain-points-node",
+      "data": {
+        "label": "Pain Points",
+        "items": [
+          "أخطاء متكررة عند نقل البيانات",
+          "تأخير في معرفة حالات الغياب",
+          "ضعف التواصل مع الأهل",
+          "عدم وضوح الصورة اليومية للإدارة"
+        ]
+      },
+      "position": {
+        "x": 1120,
+        "y": 80
+      },
+      "width": 260,
+      "height": 318,
+      "parentId": "group-pd-20260428-pro001",
+      "extent": "parent",
+      "draggable": true,
+      "selectable": true,
+      "connectable": true,
+      "positionAbsolute": {
+        "x": 1240,
+        "y": -520
+      }
+    },
+    {
+      "id": "pd-constraints-5",
+      "type": "pd-constraints-node",
+      "data": {
+        "label": "Constraints",
+        "items": [
+          "نظام يدوي",
+          "اعتماد على الورق",
+          "عدم وجود توحيد في الإدخال",
+          "قلة الوقت لدى المعلمين"
+        ]
+      },
+      "position": {
+        "x": 420,
+        "y": 400
+      },
+      "width": 260,
+      "height": 318,
+      "parentId": "group-pd-20260428-pro001",
+      "extent": "parent",
+      "draggable": true,
+      "selectable": true,
+      "connectable": true,
+      "positionAbsolute": {
+        "x": 540,
+        "y": -200
+      }
+    },
+    {
+      "id": "pd-scope-6",
+      "type": "pd-scope-node",
+      "data": {
+        "label": "Scope",
+        "in": [
+          "تسجيل الحضور",
+          "تسجيل الغياب",
+          "متابعة الحالة اليومية"
+        ],
+        "out": [
+          "أنظمة مالية",
+          "إدارة أكاديمية كاملة",
+          "أنظمة تعليم إلكتروني"
+        ]
+      },
+      "position": {
+        "x": 760,
+        "y": 400
+      },
+      "width": 260,
+      "height": 222,
+      "parentId": "group-pd-20260428-pro001",
+      "extent": "parent",
+      "draggable": true,
+      "selectable": true,
+      "connectable": true,
+      "positionAbsolute": {
+        "x": 880,
+        "y": -200
+      }
+    },
+    {
+      "id": "pd-signals-7",
+      "type": "pd-signals-node",
+      "data": {
+        "label": "Signals",
+        "items": [
+          "تكرار الشكاوى من الأخطاء",
+          "تأخر معرفة الغياب",
+          "سؤال الأهل المستمر",
+          "عدم ثقة بالإحصائيات"
+        ]
+      },
+      "position": {
+        "x": 1120,
+        "y": 400
+      },
+      "width": 260,
+      "height": 318,
+      "parentId": "group-pd-20260428-pro001",
+      "extent": "parent",
+      "draggable": true,
+      "selectable": true,
+      "connectable": true,
+      "positionAbsolute": {
+        "x": 1240,
+        "y": -200
+      }
+    },
+    {
+      "id": "pd-gate-8",
+      "type": "gate-problem",
+      "data": {
+        "label": "PD Lock Gate",
+        "description": "لا يمكن الانتقال إلى S0 قبل اعتماد المشكلة بشكل كامل من Human.",
+        "gateStatus": "pending",
+        "decisionAuthority": "Human Only"
+      },
+      "position": {
+        "x": 700,
+        "y": 720
+      },
+      "width": 365,
+      "height": 204,
+      "parentId": "group-pd-20260428-pro001",
+      "extent": "parent",
+      "draggable": true,
+      "selectable": true,
+      "connectable": true,
+      "positionAbsolute": {
+        "x": 820,
+        "y": 120
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "pd-summary-1",
+      "target": "pd-actors-2"
+    },
+    {
+      "id": "e2",
+      "source": "pd-actors-2",
+      "target": "pd-goals-3"
+    },
+    {
+      "id": "e3",
+      "source": "pd-goals-3",
+      "target": "pd-pain-4"
+    },
+    {
+      "id": "e4",
+      "source": "pd-pain-4",
+      "target": "pd-gate-8"
+    },
+    {
+      "id": "e5",
+      "source": "pd-constraints-5",
+      "target": "pd-gate-8"
+    },
+    {
+      "id": "e6",
+      "source": "pd-scope-6",
+      "target": "pd-gate-8"
+    },
+    {
+      "id": "e7",
+      "source": "pd-signals-7",
+      "target": "pd-gate-8"
+    }
+  ],
+  "evidence": []
+}
