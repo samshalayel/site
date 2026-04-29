@@ -1,20 +1,14 @@
-# Site
+# Site Repository
 
-This repository contains the site project — a collection of structured data files and web assets that power the site platform.
+This repository contains the site project.
 
 ## Overview
+This is a web project repository managed by Sam Shalayel.
 
-The `site` repo serves as the central data and content store for the project. It holds JSON data exports, configuration files, and related resources used across the site infrastructure.
+## Getting Started
+- Review the project structure and documentation
+- Check the configuration files for setup instructions
+- Follow the development guidelines in this repository
 
-## Structure
-
-- **JSON data files** — Exported datasets and configuration snapshots used by the platform.
-- **Web assets** — Static files and resources served to end users.
-
-## Usage
-
-Files in this repository are consumed by the site platform automatically. Refer to the relevant service documentation for integration details.
-
-## Contributing
-
-Please follow the project contribution guidelines when adding or updating files in this repository.
+## License
+All rights reserved.
