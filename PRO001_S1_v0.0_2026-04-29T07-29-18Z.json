@@ -1,0 +1,249 @@
+{
+  "nodes": [
+    {
+      "id": "group-s1-20260429-pro001",
+      "type": "group",
+      "data": { "label": "S1" },
+      "position": { "x": 150, "y": -705 },
+      "width": 1697,
+      "height": 1100,
+      "style": { "width": 1697, "height": 1100, "zIndex": -1 }
+    },
+    {
+      "id": "stage-1-1",
+      "type": "stage-1",
+      "data": {
+        "group": "S1",
+        "label": "Stage 1 — Product Shape",
+        "description": "نظام إدارة مواعيد طبية يربط المرضى بالعيادة عبر حجز منظم وآمن",
+        "points": [
+          "منتج رقمي لحجز المواعيد الطبية",
+          "يخدم العيادات الصغيرة والمتوسطة",
+          "يركز على البساطة والوضوح",
+          "يحل مشكلة التداخل والفقدان",
+          "يحسن تجربة المريض والطبيب معاً"
+        ],
+        "aiPercentage": 5,
+        "humanPercentage": 95,
+        "stageNumber": 1
+      },
+      "position": { "x": 15, "y": 60 },
+      "width": 300,
+      "height": 388,
+      "parentId": "group-s1-20260429-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "actors-node-2",
+      "type": "actors-node",
+      "data": {
+        "group": "S1",
+        "label": "Actors",
+        "description": "الأطراف الرئيسية التي ستتفاعل مع النظام وتستفيد منه",
+        "points": [
+          "المرضى: يحجزون ويدبرون مواعيدهم",
+          "موظف الاستقبال: يدير الحجوزات والجدولة",
+          "الطبيب: يراجع جدول مواعيده",
+          "مدير العيادة: يشرف على النظام",
+          "الدعم التقني: يساعد في حالات الطوارئ"
+        ]
+      },
+      "position": { "x": 370, "y": 60 },
+      "width": 300,
+      "height": 336,
+      "parentId": "group-s1-20260429-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "entities-node-3",
+      "type": "entities-node",
+      "data": {
+        "group": "S1",
+        "label": "Entities",
+        "description": "الكيانات الأساسية التي يتعامل معها النظام",
+        "points": [
+          "الموعد: التاريخ والوقت والحالة",
+          "المريض: البيانات الأساسية والتواصل",
+          "الطبيب: التخصص والجدول الزمني",
+          "العيادة: المعلومات والأوقات المتاحة",
+          "الحجز: ربط المريض بالموعد والطبيب"
+        ]
+      },
+      "position": { "x": 725, "y": 60 },
+      "width": 300,
+      "height": 318,
+      "parentId": "group-s1-20260429-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "modules-node-4",
+      "type": "modules-node",
+      "data": {
+        "group": "S1",
+        "label": "Modules",
+        "description": "الوحدات الوظيفية الرئيسية للنظام",
+        "points": [
+          "وحدة الحجز: إنشاء وتعديل المواعيد",
+          "وحدة الجدولة: عرض وتنظيم الأوقات",
+          "وحدة المرضى: إدارة بيانات المرضى",
+          "وحدة التنبيهات: إشعارات وتذكير",
+          "وحدة التقارير: إحصائيات ومتابعة"
+        ]
+      },
+      "position": { "x": 1080, "y": 60 },
+      "width": 300,
+      "height": 318,
+      "parentId": "group-s1-20260429-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "boundaries-node-5",
+      "type": "boundaries-node",
+      "data": {
+        "group": "S1",
+        "label": "Boundaries",
+        "description": "حدود النظام وما يشمله وما لا يشمله",
+        "points": [
+          "داخل النطاق: حجز وجدولة المواعيد فقط",
+          "خارج النطاق: السجلات الطبية والفواتير",
+          "خارج النطاق: تشخيص أو استشارات طبية",
+          "خارج النطاق: دفع رقمي أو تأمين",
+          "التركيز: بساطة الاستخدام والموثوقية"
+        ]
+      },
+      "position": { "x": 15, "y": 520 },
+      "width": 300,
+      "height": 336,
+      "parentId": "group-s1-20260429-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "interactions-node-6",
+      "type": "interactions-node",
+      "data": {
+        "group": "S1",
+        "label": "Interactions",
+        "description": "كيف تتفاعل الأطراف مع النظام والكيانات",
+        "points": [
+          "المريض يختار موعد متاح ويحجز",
+          "الموظف يؤكد الحجز ويدير التغييرات",
+          "النظام يرسل تأكيد وتذكير للمريض",
+          "الطبيب يراجع جدوله اليومي",
+          "النظام يمنع التداخل تلقائياً"
+        ]
+      },
+      "position": { "x": 370, "y": 520 },
+      "width": 300,
+      "height": 318,
+      "parentId": "group-s1-20260429-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "gate-shape-7",
+      "type": "gate-shape",
+      "data": {
+        "group": "S1",
+        "label": "Shape Gate",
+        "description": "هل تم تحديد شكل المنتج بوضوح؟",
+        "points": [
+          "✓ تم تحديد الهدف من المنتج",
+          "✓ تم تعريف المستخدمين الأساسيين",
+          "✓ تم وضع حدود واضحة للنطاق",
+          "✓ تم تحديد التفاعلات الأساسية",
+          "جاهز للانتقال إلى S2 - Experience Map"
+        ]
+      },
+      "position": { "x": 725, "y": 520 },
+      "width": 300,
+      "height": 318,
+      "parentId": "group-s1-20260429-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "next-stage-8",
+      "type": "next-stage",
+      "data": {
+        "group": "S1",
+        "label": "Next: S2",
+        "description": "المرحلة القادمة: رسم خريطة تجربة المستخدم",
+        "points": [
+          "تفصيل رحلة المريض خطوة بخطوة",
+          "تحديد نقاط التفاعل مع النظام",
+          "رسم الـ user journey للحجز",
+          "تحديد التحديات في كل مرحلة",
+          "وضع الأسس لتصميم الواجهات"
+        ]
+      },
+      "position": { "x": 1080, "y": 520 },
+      "width": 300,
+      "height": 318,
+      "parentId": "group-s1-20260429-pro001",
+      "extent": "parent"
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-1-2",
+      "source": "stage-1-1",
+      "target": "actors-node-2",
+      "type": "smoothstep",
+      "style": { "stroke": "#64748b", "strokeWidth": 2 }
+    },
+    {
+      "id": "edge-2-3",
+      "source": "actors-node-2",
+      "target": "entities-node-3",
+      "type": "smoothstep",
+      "style": { "stroke": "#64748b", "strokeWidth": 2 }
+    },
+    {
+      "id": "edge-3-4",
+      "source": "entities-node-3",
+      "target": "modules-node-4",
+      "type": "smoothstep",
+      "style": { "stroke": "#64748b", "strokeWidth": 2 }
+    },
+    {
+      "id": "edge-1-5",
+      "source": "stage-1-1",
+      "target": "boundaries-node-5",
+      "type": "smoothstep",
+      "style": { "stroke": "#64748b", "strokeWidth": 2 }
+    },
+    {
+      "id": "edge-5-6",
+      "source": "boundaries-node-5",
+      "target": "interactions-node-6",
+      "type": "smoothstep",
+      "style": { "stroke": "#64748b", "strokeWidth": 2 }
+    },
+    {
+      "id": "edge-6-7",
+      "source": "interactions-node-6",
+      "target": "gate-shape-7",
+      "type": "smoothstep",
+      "style": { "stroke": "#64748b", "strokeWidth": 2 }
+    },
+    {
+      "id": "edge-7-8",
+      "source": "gate-shape-7",
+      "target": "next-stage-8",
+      "type": "smoothstep",
+      "style": { "stroke": "#10b981", "strokeWidth": 3 }
+    }
+  ],
+  "evidence": {
+    "source": "S0 Problem Analysis",
+    "transformedBy": "Seesaw-S1",
+    "focus": "Product shape without technical details",
+    "keyDecisions": [
+      "Defined clear product boundaries",
+      "Identified all key actors and their roles",
+      "Mapped conceptual entities",
+      "Outlined high-level modules",
+      "Established interaction patterns"
+    ],
+    "readyForNext": "S2 - Experience Mapping"
+  },
+  "exportedAt": "2026-04-29T07:29:18Z"
+}
