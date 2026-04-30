@@ -1,0 +1,48 @@
+{
+  "title": "Student API - Read / Get Endpoints",
+  "description": "REST API endpoints for reading student data",
+  "endpoints": [
+    {
+      "method": "GET",
+      "path": "/students",
+      "description": "List all students with search, filtering, and pagination",
+      "query_parameters": {
+        "search": "string - Search by name or email",
+        "filter": "object - Filter by fields (status, grade, etc)",
+        "page": "number - Page number for pagination",
+        "limit": "number - Items per page (default: 10)"
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "data": "array of student objects",
+          "pagination": {
+            "current_page": "number",
+            "total_pages": "number",
+            "total_count": "number",
+            "per_page": "number"
+          }
+        }
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/students/:id",
+      "description": "Get a specific student by ID",
+      "path_parameters": {
+        "id": "string - Student unique identifier"
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "id": "string",
+          "name": "string",
+          "email": "string",
+          "status": "string",
+          "grade": "string",
+          "created_at": "timestamp"
+        }
+      }
+    }
+  ]
+}
