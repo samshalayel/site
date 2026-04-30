@@ -1,4 +1,4 @@
-# Student API - Read/Get/Delete Endpoints
+# Student API - Read/Get/Delete/Update Endpoints
 
 ## Endpoints
 
@@ -47,6 +47,32 @@ Retrieve a specific student by ID.
 }
 ```
 
+### PUT/PATCH /students/:id
+Update student data (تعديل بيانات الطالب).
+
+**Request Body:**
+```json
+{
+  "name": "Updated Name",
+  "email": "newemail@example.com",
+  "grade": "New Grade",
+  "status": "active"
+}
+```
+
+**Response:**
+```json
+{
+  "id": "student_id",
+  "name": "Updated Name",
+  "email": "newemail@example.com",
+  "grade": "New Grade",
+  "status": "active",
+  "enrolledAt": "2026-01-15T00:00:00Z",
+  "updatedAt": "2026-04-30T12:00:00Z"
+}
+```
+
 ### DELETE /students/:id
 Soft delete a student while maintaining historical records.
 
@@ -66,8 +92,10 @@ Soft delete a student while maintaining historical records.
 - **Search (بحث)**: Full-text search across student names and email addresses
 - **Filtering (تصفية)**: Filter by grade, status, enrollment date, and other criteria
 - **Pagination (ترقيم الصفحات)**: Offset-based pagination with configurable page size
+- **Update (تحديث)**: Modify student information with partial or full updates
 - **Soft Delete (حذف ناعم)**: Preserves historical data and audit trails while marking records as deleted
 
 ## Status
 - GET /students, GET /students/:id - Implemented for ClickUp Task #86ewvfm6u
+- PUT/PATCH /students/:id - Implemented for ClickUp Task #86ewvfm6v
 - DELETE /students/:id - Implemented for ClickUp Task #86ewvfm70
