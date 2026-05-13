@@ -1,0 +1,465 @@
+{
+  "nodes": [
+    {
+      "id": "group-s3-20260513-hos001",
+      "type": "group",
+      "data": { "label": "S3 — Development (Hospital System)" },
+      "position": { "x": 0, "y": 0 },
+      "width": 3400,
+      "height": 2800,
+      "style": { "width": 3400, "height": 2800, "zIndex": -1 }
+    },
+    {
+      "id": "s3-stage-main",
+      "type": "s3-stage",
+      "data": {
+        "label": "Production Slice — Hospital Management System",
+        "description": "تقسيم نظام المستشفى إلى 4 شرائح عمودية مستقلة — كل شريحة تُبنى وتُسلَّم بشكل مستقل",
+        "points": [
+          "النظام الكامل: إدارة مستشفى (Patient Reg + Appointments + Lab + Pharmacy)",
+          "الاستراتيجية: كل شريحة تمر بـ S3→S4→S5 بشكل مستقل",
+          "الترتيب: Slice 1 أولاً (foundation) → Slice 2,3 بالتوازي → Slice 4 أخيراً",
+          "الـ Slices تتشارك data model مشترك عبر Patient ID"
+        ]
+      },
+      "position": { "x": 1200, "y": 40 },
+      "width": 500,
+      "height": 260,
+      "parentId": "group-s3-20260513-hos001",
+      "extent": "parent"
+    },
+
+    {
+      "id": "group-slice1",
+      "type": "group",
+      "data": { "label": "Slice 1: تسجيل المرضى (Patient Registration)" },
+      "position": { "x": 40, "y": 360 },
+      "width": 1600,
+      "height": 520,
+      "style": { "width": 1600, "height": 520, "zIndex": 0 },
+      "parentId": "group-s3-20260513-hos001",
+      "extent": "parent"
+    },
+    {
+      "id": "s3-slice-reg",
+      "type": "s3-slice-node",
+      "data": {
+        "label": "Slice 1: Patient Registration",
+        "description": "الشريحة الأساسية — تسجيل المرضى وإنشاء ملفاتهم",
+        "points": [
+          "تسجيل مريض جديد (اسم، هوية، تاريخ ميلاد، رقم جوال)",
+          "البحث عن مريض موجود بالاسم أو رقم الهوية",
+          "تعديل بيانات مريض",
+          "عرض قائمة المرضى المسجلين",
+          "هذه الشريحة هي الـ foundation — كل الشرائح الأخرى تعتمد عليها"
+        ]
+      },
+      "position": { "x": 40, "y": 60 },
+      "width": 360,
+      "height": 280,
+      "parentId": "group-slice1",
+      "extent": "parent"
+    },
+    {
+      "id": "s3-contract-reg",
+      "type": "s3-contract-node",
+      "data": {
+        "label": "API: Patient Service",
+        "description": "العقود البرمجية لخدمة المرضى",
+        "points": [
+          "POST /patients → { id, name, nationalId, dob, phone }",
+          "GET /patients?search=query → Patient[]",
+          "GET /patients/:id → Patient",
+          "PUT /patients/:id → updated Patient",
+          "Constraint: nationalId فريد — لا يمكن تسجيل نفس الهوية مرتين"
+        ]
+      },
+      "position": { "x": 460, "y": 60 },
+      "width": 360,
+      "height": 280,
+      "parentId": "group-slice1",
+      "extent": "parent"
+    },
+    {
+      "id": "s3-data-reg",
+      "type": "s3-data-model-node",
+      "data": {
+        "label": "Data: Patient Entity",
+        "description": "مخطط بيانات المريض",
+        "points": [
+          "Patient { id: UUID, name: string, nationalId: string (unique), dob: Date, phone: string }",
+          "Table: patients — PostgreSQL",
+          "Index: nationalId (unique), name (search)",
+          "Relations: patient → appointments[], patient → lab_orders[], patient → prescriptions[]",
+          "Audit: created_at, updated_at, created_by"
+        ]
+      },
+      "position": { "x": 880, "y": 60 },
+      "width": 360,
+      "height": 280,
+      "parentId": "group-slice1",
+      "extent": "parent"
+    },
+    {
+      "id": "s3-tasks-reg",
+      "type": "s3-task-plan-node",
+      "data": {
+        "label": "Tasks: Registration Slice",
+        "description": "مهام بناء شريحة التسجيل",
+        "points": [
+          "T1: إنشاء Patient model + migration",
+          "T2: بناء CRUD API endpoints",
+          "T3: بناء Registration Form (React)",
+          "T4: بناء Patient Search + List view",
+          "T5: إضافة validation (nationalId unique, required fields)",
+          "T6: Integration test: register → search → find"
+        ]
+      },
+      "position": { "x": 1200, "y": 60 },
+      "width": 340,
+      "height": 280,
+      "parentId": "group-slice1",
+      "extent": "parent"
+    },
+
+    {
+      "id": "group-slice2",
+      "type": "group",
+      "data": { "label": "Slice 2: حجز المواعيد (Appointments)" },
+      "position": { "x": 40, "y": 940 },
+      "width": 1600,
+      "height": 520,
+      "style": { "width": 1600, "height": 520, "zIndex": 0 },
+      "parentId": "group-s3-20260513-hos001",
+      "extent": "parent"
+    },
+    {
+      "id": "s3-slice-appt",
+      "type": "s3-slice-node",
+      "data": {
+        "label": "Slice 2: Appointments",
+        "description": "حجز وإدارة مواعيد الأطباء",
+        "points": [
+          "عرض جدول الطبيب اليومي/الأسبوعي",
+          "حجز موعد لمريض مسجل (ربط بـ Patient ID)",
+          "منع الحجز المزدوج (Double Booking prevention)",
+          "إلغاء / إعادة جدولة موعد",
+          "إشعار المريض بالموعد (SMS integration — v2)",
+          "يعتمد على: Slice 1 (Patient Registration)"
+        ]
+      },
+      "position": { "x": 40, "y": 60 },
+      "width": 360,
+      "height": 300,
+      "parentId": "group-slice2",
+      "extent": "parent"
+    },
+    {
+      "id": "s3-contract-appt",
+      "type": "s3-contract-node",
+      "data": {
+        "label": "API: Appointment Service",
+        "description": "العقود البرمجية لخدمة المواعيد",
+        "points": [
+          "GET /doctors → Doctor[] (اسم، تخصص، عيادة)",
+          "GET /doctors/:id/slots?date=YYYY-MM-DD → Slot[]",
+          "POST /appointments → { patientId, doctorId, slotId, date }",
+          "DELETE /appointments/:id → cancelled",
+          "GET /appointments?doctorId=X&date=Y → Appointment[]",
+          "Constraint: slot + doctor + date = unique"
+        ]
+      },
+      "position": { "x": 460, "y": 60 },
+      "width": 360,
+      "height": 300,
+      "parentId": "group-slice2",
+      "extent": "parent"
+    },
+    {
+      "id": "s3-data-appt",
+      "type": "s3-data-model-node",
+      "data": {
+        "label": "Data: Appointment Entity",
+        "description": "مخطط بيانات المواعيد",
+        "points": [
+          "Doctor { id, name, specialty, clinicRoom }",
+          "Slot { id, doctorId, time, duration, dayOfWeek }",
+          "Appointment { id, patientId (FK), doctorId (FK), slotId (FK), date, status }",
+          "Status enum: scheduled | completed | cancelled | no_show",
+          "Unique constraint: (doctorId, slotId, date) — prevents double booking"
+        ]
+      },
+      "position": { "x": 880, "y": 60 },
+      "width": 360,
+      "height": 280,
+      "parentId": "group-slice2",
+      "extent": "parent"
+    },
+    {
+      "id": "s3-tasks-appt",
+      "type": "s3-task-plan-node",
+      "data": {
+        "label": "Tasks: Appointments Slice",
+        "description": "مهام بناء شريحة المواعيد",
+        "points": [
+          "T1: إنشاء Doctor + Slot + Appointment models + migrations",
+          "T2: بناء Doctor schedule API",
+          "T3: بناء Booking API مع double-booking prevention",
+          "T4: بناء Doctor Schedule UI (calendar view)",
+          "T5: بناء Booking Form مع Patient search",
+          "T6: Integration test: search patient → book → prevent double → cancel"
+        ]
+      },
+      "position": { "x": 1200, "y": 60 },
+      "width": 340,
+      "height": 280,
+      "parentId": "group-slice2",
+      "extent": "parent"
+    },
+
+    {
+      "id": "group-slice3",
+      "type": "group",
+      "data": { "label": "Slice 3: طلبات المختبر (Lab Orders)" },
+      "position": { "x": 40, "y": 1520 },
+      "width": 1600,
+      "height": 520,
+      "style": { "width": 1600, "height": 520, "zIndex": 0 },
+      "parentId": "group-s3-20260513-hos001",
+      "extent": "parent"
+    },
+    {
+      "id": "s3-slice-lab",
+      "type": "s3-slice-node",
+      "data": {
+        "label": "Slice 3: Lab Orders",
+        "description": "طلب وتتبع الفحوصات المخبرية",
+        "points": [
+          "الطبيب يطلب فحص مخبري لمريض (ربط بـ Patient ID + Appointment ID)",
+          "فني المختبر يستلم الطلب ويسجل النتيجة",
+          "الطبيب يشوف نتيجة الفحص",
+          "تتبع حالة الطلب: ordered → collected → processing → resulted",
+          "يعتمد على: Slice 1 (Patient) + Slice 2 (Appointment — اختياري)"
+        ]
+      },
+      "position": { "x": 40, "y": 60 },
+      "width": 360,
+      "height": 300,
+      "parentId": "group-slice3",
+      "extent": "parent"
+    },
+    {
+      "id": "s3-contract-lab",
+      "type": "s3-contract-node",
+      "data": {
+        "label": "API: Lab Service",
+        "description": "العقود البرمجية لخدمة المختبر",
+        "points": [
+          "POST /lab-orders → { patientId, doctorId, tests[], urgency }",
+          "GET /lab-orders?status=pending → LabOrder[] (لفني المختبر)",
+          "PUT /lab-orders/:id/result → { results: TestResult[] }",
+          "GET /patients/:id/lab-results → LabResult[] (للطبيب)",
+          "Constraint: فقط الطبيب يطلب، فقط فني المختبر يسجل النتيجة"
+        ]
+      },
+      "position": { "x": 460, "y": 60 },
+      "width": 360,
+      "height": 280,
+      "parentId": "group-slice3",
+      "extent": "parent"
+    },
+    {
+      "id": "s3-data-lab",
+      "type": "s3-data-model-node",
+      "data": {
+        "label": "Data: Lab Entities",
+        "description": "مخطط بيانات المختبر",
+        "points": [
+          "LabTest { id, name, category, normalRange, unit }",
+          "LabOrder { id, patientId (FK), doctorId (FK), appointmentId? (FK), status, urgency }",
+          "LabOrderItem { id, orderId (FK), testId (FK), result?, resultDate?, technicianId? }",
+          "Status flow: ordered → sample_collected → processing → resulted",
+          "Role-based: doctor creates, technician results"
+        ]
+      },
+      "position": { "x": 880, "y": 60 },
+      "width": 360,
+      "height": 280,
+      "parentId": "group-slice3",
+      "extent": "parent"
+    },
+    {
+      "id": "s3-tasks-lab",
+      "type": "s3-task-plan-node",
+      "data": {
+        "label": "Tasks: Lab Slice",
+        "description": "مهام بناء شريحة المختبر",
+        "points": [
+          "T1: إنشاء LabTest + LabOrder + LabOrderItem models",
+          "T2: بناء Order creation API (doctor only)",
+          "T3: بناء Result entry API (technician only)",
+          "T4: بناء Lab Order Form (doctor view)",
+          "T5: بناء Lab Queue UI (technician view)",
+          "T6: بناء Lab Results view (doctor sees patient results)",
+          "T7: Integration test: order → collect → process → result → doctor views"
+        ]
+      },
+      "position": { "x": 1200, "y": 60 },
+      "width": 340,
+      "height": 300,
+      "parentId": "group-slice3",
+      "extent": "parent"
+    },
+
+    {
+      "id": "group-slice4",
+      "type": "group",
+      "data": { "label": "Slice 4: الصيدلية (Pharmacy)" },
+      "position": { "x": 40, "y": 2100 },
+      "width": 1600,
+      "height": 520,
+      "style": { "width": 1600, "height": 520, "zIndex": 0 },
+      "parentId": "group-s3-20260513-hos001",
+      "extent": "parent"
+    },
+    {
+      "id": "s3-slice-pharm",
+      "type": "s3-slice-node",
+      "data": {
+        "label": "Slice 4: Pharmacy",
+        "description": "صرف الأدوية والوصفات الطبية",
+        "points": [
+          "الطبيب يكتب وصفة طبية لمريض (ربط بـ Patient ID)",
+          "الصيدلي يستلم الوصفة ويصرف الأدوية",
+          "التحقق من التفاعلات الدوائية (Drug Interaction check)",
+          "تتبع المخزون (Stock tracking — v2)",
+          "يعتمد على: Slice 1 (Patient)"
+        ]
+      },
+      "position": { "x": 40, "y": 60 },
+      "width": 360,
+      "height": 280,
+      "parentId": "group-slice4",
+      "extent": "parent"
+    },
+    {
+      "id": "s3-contract-pharm",
+      "type": "s3-contract-node",
+      "data": {
+        "label": "API: Pharmacy Service",
+        "description": "العقود البرمجية لخدمة الصيدلية",
+        "points": [
+          "POST /prescriptions → { patientId, doctorId, medications[] }",
+          "GET /prescriptions?status=pending → Prescription[] (للصيدلي)",
+          "PUT /prescriptions/:id/dispense → dispensed",
+          "GET /patients/:id/prescriptions → Prescription[] (تاريخ الوصفات)",
+          "POST /drug-interactions/check → { medications[], interactions[] }"
+        ]
+      },
+      "position": { "x": 460, "y": 60 },
+      "width": 360,
+      "height": 280,
+      "parentId": "group-slice4",
+      "extent": "parent"
+    },
+    {
+      "id": "s3-data-pharm",
+      "type": "s3-data-model-node",
+      "data": {
+        "label": "Data: Pharmacy Entities",
+        "description": "مخطط بيانات الصيدلية",
+        "points": [
+          "Medication { id, name, genericName, dosageForm, strength }",
+          "Prescription { id, patientId (FK), doctorId (FK), status, createdAt }",
+          "PrescriptionItem { id, prescriptionId (FK), medicationId (FK), dosage, frequency, duration }",
+          "DrugInteraction { medicationA (FK), medicationB (FK), severity, description }",
+          "Status flow: prescribed → dispensed | rejected"
+        ]
+      },
+      "position": { "x": 880, "y": 60 },
+      "width": 360,
+      "height": 280,
+      "parentId": "group-slice4",
+      "extent": "parent"
+    },
+    {
+      "id": "s3-tasks-pharm",
+      "type": "s3-task-plan-node",
+      "data": {
+        "label": "Tasks: Pharmacy Slice",
+        "description": "مهام بناء شريحة الصيدلية",
+        "points": [
+          "T1: إنشاء Medication + Prescription + PrescriptionItem models",
+          "T2: بناء Prescription API (doctor creates)",
+          "T3: بناء Drug Interaction checking logic",
+          "T4: بناء Dispensing API (pharmacist only)",
+          "T5: بناء Prescription Form (doctor view)",
+          "T6: بناء Pharmacy Queue UI (pharmacist view)",
+          "T7: Integration test: prescribe → check interactions → dispense"
+        ]
+      },
+      "position": { "x": 1200, "y": 60 },
+      "width": 340,
+      "height": 300,
+      "parentId": "group-slice4",
+      "extent": "parent"
+    },
+
+    {
+      "id": "s3-gate-main",
+      "type": "gate-slice",
+      "data": {
+        "label": "Slice Gate ✅ — Hospital System",
+        "description": "بوابة الشرائح — موافقة مشتركة إنسان + AI على تقسيم النظام",
+        "gateStatus": "approved",
+        "decisionAuthority": "Human + AI",
+        "gateChecklist": [
+          "كل شريحة مستقلة وقابلة للتسليم بشكل منفصل",
+          "التبعيات بين الشرائح واضحة (Slice 1 = foundation)",
+          "API Contracts واضحة ومتسقة (REST, JSON, FK references)",
+          "Data Model مترابط عبر Patient ID المشترك",
+          "لا circular dependencies بين الشرائح",
+          "ترتيب البناء منطقي: Registration أولاً → Appointments/Lab بالتوازي → Pharmacy"
+        ]
+      },
+      "position": { "x": 1100, "y": 2700 },
+      "width": 700,
+      "height": 200,
+      "parentId": "group-s3-20260513-hos001",
+      "extent": "parent"
+    }
+  ],
+  "edges": [
+    { "id": "e-s3-main-slice1", "type": "custom", "source": "s3-stage-main", "target": "s3-slice-reg" },
+    { "id": "e-s3-main-slice2", "type": "custom", "source": "s3-stage-main", "target": "s3-slice-appt" },
+    { "id": "e-s3-main-slice3", "type": "custom", "source": "s3-stage-main", "target": "s3-slice-lab" },
+    { "id": "e-s3-main-slice4", "type": "custom", "source": "s3-stage-main", "target": "s3-slice-pharm" },
+
+    { "id": "e-s3-reg-contract", "type": "custom", "source": "s3-slice-reg", "target": "s3-contract-reg" },
+    { "id": "e-s3-reg-data", "type": "custom", "source": "s3-contract-reg", "target": "s3-data-reg" },
+    { "id": "e-s3-reg-tasks", "type": "custom", "source": "s3-data-reg", "target": "s3-tasks-reg" },
+
+    { "id": "e-s3-appt-contract", "type": "custom", "source": "s3-slice-appt", "target": "s3-contract-appt" },
+    { "id": "e-s3-appt-data", "type": "custom", "source": "s3-contract-appt", "target": "s3-data-appt" },
+    { "id": "e-s3-appt-tasks", "type": "custom", "source": "s3-data-appt", "target": "s3-tasks-appt" },
+
+    { "id": "e-s3-lab-contract", "type": "custom", "source": "s3-slice-lab", "target": "s3-contract-lab" },
+    { "id": "e-s3-lab-data", "type": "custom", "source": "s3-contract-lab", "target": "s3-data-lab" },
+    { "id": "e-s3-lab-tasks", "type": "custom", "source": "s3-data-lab", "target": "s3-tasks-lab" },
+
+    { "id": "e-s3-pharm-contract", "type": "custom", "source": "s3-slice-pharm", "target": "s3-contract-pharm" },
+    { "id": "e-s3-pharm-data", "type": "custom", "source": "s3-contract-pharm", "target": "s3-data-pharm" },
+    { "id": "e-s3-pharm-tasks", "type": "custom", "source": "s3-data-pharm", "target": "s3-tasks-pharm" },
+
+    { "id": "e-s3-dep-reg-appt", "type": "custom", "source": "s3-tasks-reg", "target": "s3-slice-appt" },
+    { "id": "e-s3-dep-reg-lab", "type": "custom", "source": "s3-tasks-reg", "target": "s3-slice-lab" },
+    { "id": "e-s3-dep-reg-pharm", "type": "custom", "source": "s3-tasks-reg", "target": "s3-slice-pharm" },
+
+    { "id": "e-s3-tasks-reg-gate", "type": "custom", "source": "s3-tasks-reg", "target": "s3-gate-main" },
+    { "id": "e-s3-tasks-appt-gate", "type": "custom", "source": "s3-tasks-appt", "target": "s3-gate-main" },
+    { "id": "e-s3-tasks-lab-gate", "type": "custom", "source": "s3-tasks-lab", "target": "s3-gate-main" },
+    { "id": "e-s3-tasks-pharm-gate", "type": "custom", "source": "s3-tasks-pharm", "target": "s3-gate-main" }
+  ],
+  "evidence": [],
+  "exportedAt": "2026-05-13T12:00:00.000Z"
+}

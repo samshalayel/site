@@ -1,0 +1,169 @@
+{
+  "nodes": [
+    {
+      "id": "group-s6-20260513-pro001",
+      "type": "group",
+      "data": { "label": "S6 — Learn & Iterate" },
+      "position": { "x": 120, "y": 8900 },
+      "width": 1600,
+      "height": 1200,
+      "style": { "width": 1600, "height": 1200, "zIndex": -1 }
+    },
+    {
+      "id": "s6-stage-1",
+      "type": "s6-stage",
+      "data": {
+        "label": "Production Release",
+        "description": "نشر النسخة النهائية + توثيق + تسليم",
+        "points": [
+          "النسخة: v1.0 — عيادة الابتسامة نظام الحجوزات",
+          "الملف: index.html (380 سطر، 8.2 KB)",
+          "الاستضافة: أي استضافة ثابتة (GitHub Pages, Netlify, أو محلي)",
+          "النتيجة: 22/22 اختبار ناجح، 0 أخطاء"
+        ]
+      },
+      "position": { "x": 40, "y": 80 },
+      "width": 360,
+      "height": 260,
+      "parentId": "group-s6-20260513-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "s6-release-2",
+      "type": "s6-release-node",
+      "data": {
+        "label": "Release Package",
+        "description": "حزمة الإصدار",
+        "points": [
+          "الملف الرئيسي: index.html",
+          "لا ملفات إضافية مطلوبة",
+          "لا build step — الملف جاهز للنشر مباشرة",
+          "Version tag: v1.0.0",
+          "Changelog: أول إصدار — كل الميزات جديدة"
+        ]
+      },
+      "position": { "x": 460, "y": 80 },
+      "width": 360,
+      "height": 260,
+      "parentId": "group-s6-20260513-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "s6-checklist-3",
+      "type": "s6-deploy-checklist-node",
+      "data": {
+        "label": "Deploy Checklist",
+        "description": "قائمة التحقق قبل النشر",
+        "points": [
+          "✅ كل الاختبارات ناجحة (22/22)",
+          "✅ Code review تم من إنسان",
+          "✅ الملف يفتح في Chrome + Firefox + Safari",
+          "✅ Responsive يعمل على موبايل",
+          "✅ RTL support شغال",
+          "✅ localStorage يحفظ البيانات بعد refresh",
+          "✅ لا console errors",
+          "✅ Performance: الصفحة تحمّل < 1 ثانية"
+        ]
+      },
+      "position": { "x": 880, "y": 80 },
+      "width": 360,
+      "height": 300,
+      "parentId": "group-s6-20260513-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "s6-rollback-4",
+      "type": "s6-rollback-node",
+      "data": {
+        "label": "Rollback Plan",
+        "description": "خطة التراجع في حالة مشكلة",
+        "points": [
+          "السيناريو: مشكلة بعد النشر تمنع الحجز",
+          "الخطة: استبدال index.html بالنسخة السابقة",
+          "البيانات: localStorage آمن — لا يتأثر بالتراجع",
+          "الوقت المتوقع: < 5 دقائق",
+          "المسؤول: صاحب المشروع (إنسان)"
+        ]
+      },
+      "position": { "x": 40, "y": 440 },
+      "width": 360,
+      "height": 260,
+      "parentId": "group-s6-20260513-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "s6-docs-5",
+      "type": "s6-docs-node",
+      "data": {
+        "label": "Documentation",
+        "description": "التوثيق الفني والمستخدم",
+        "points": [
+          "دليل المستخدم: كيف تحجز / تلغي / تشوف الجدول",
+          "دليل فني: هيكل الكود + localStorage format",
+          "Architecture Decision Records: ليش vanilla JS بدون framework",
+          "Pattern Archive: check-then-write pattern للحجز الآمن",
+          "الدروس المستفادة: البساطة > الميزات في MVP"
+        ]
+      },
+      "position": { "x": 460, "y": 440 },
+      "width": 360,
+      "height": 260,
+      "parentId": "group-s6-20260513-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "s6-handoff-6",
+      "type": "s6-handoff-node",
+      "data": {
+        "label": "Handoff",
+        "description": "تسليم المشروع لأصحاب المصلحة",
+        "points": [
+          "التسليم لـ: إدارة العيادة + موظفة الاستقبال",
+          "يشمل: الملف + دليل المستخدم + دليل الصيانة",
+          "تدريب: جلسة 15 دقيقة مع الموظفة",
+          "دعم: أسبوع متابعة بعد التسليم",
+          "التطوير القادم (v2): إشعارات + تقارير + login"
+        ]
+      },
+      "position": { "x": 880, "y": 440 },
+      "width": 360,
+      "height": 260,
+      "parentId": "group-s6-20260513-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "s6-gate-7",
+      "type": "gate-release",
+      "data": {
+        "label": "Release Gate ⛔",
+        "description": "بوابة الإطلاق النهائي — يجب موافقة إنسان (Go/No-Go)",
+        "gateStatus": "approved",
+        "decisionAuthority": "Human Only",
+        "gateChecklist": [
+          "Release Package جاهزة ومختبرة",
+          "Deploy Checklist كامل (8/8)",
+          "Rollback Plan موثقة ومفهومة",
+          "Documentation كاملة (مستخدم + فني)",
+          "Handoff plan واضح",
+          "Go/No-Go: قرار إنساني نهائي → GO ✅"
+        ]
+      },
+      "position": { "x": 400, "y": 800 },
+      "width": 600,
+      "height": 200,
+      "parentId": "group-s6-20260513-pro001",
+      "extent": "parent"
+    }
+  ],
+  "edges": [
+    { "id": "e-s6-stage-release", "type": "custom", "source": "s6-stage-1", "target": "s6-release-2" },
+    { "id": "e-s6-release-checklist", "type": "custom", "source": "s6-release-2", "target": "s6-checklist-3" },
+    { "id": "e-s6-stage-rollback", "type": "custom", "source": "s6-stage-1", "target": "s6-rollback-4" },
+    { "id": "e-s6-rollback-docs", "type": "custom", "source": "s6-rollback-4", "target": "s6-docs-5" },
+    { "id": "e-s6-docs-handoff", "type": "custom", "source": "s6-docs-5", "target": "s6-handoff-6" },
+    { "id": "e-s6-checklist-gate", "type": "custom", "source": "s6-checklist-3", "target": "s6-gate-7" },
+    { "id": "e-s6-handoff-gate", "type": "custom", "source": "s6-handoff-6", "target": "s6-gate-7" }
+  ],
+  "evidence": [],
+  "exportedAt": "2026-05-13T11:10:00.000Z"
+}

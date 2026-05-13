@@ -1,0 +1,151 @@
+{
+  "nodes": [
+    {
+      "id": "group-s4-20260513-pro001",
+      "type": "group",
+      "data": { "label": "S4 — Build" },
+      "position": { "x": 120, "y": 6100 },
+      "width": 1600,
+      "height": 1200,
+      "style": { "width": 1600, "height": 1200, "zIndex": -1 }
+    },
+    {
+      "id": "s4-stage-1",
+      "type": "s4-stage",
+      "data": {
+        "label": "Code Implementation",
+        "description": "تنفيذ الكود الكامل بناءً على S3 Task Breakdown",
+        "points": [
+          "ملف واحد: index.html (HTML + CSS + JS)",
+          "حدود: 500 سطر كحد أقصى",
+          "لا dependencies خارجية",
+          "كل سطر كود يرجع لمرجع في S1/S2/S3"
+        ]
+      },
+      "position": { "x": 40, "y": 80 },
+      "width": 360,
+      "height": 260,
+      "parentId": "group-s4-20260513-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "s4-structure-2",
+      "type": "s4-code-structure-node",
+      "data": {
+        "label": "Code Structure",
+        "description": "هيكل الملفات والمشروع",
+        "points": [
+          "/ — root",
+          "├── index.html (ملف واحد = HTML + CSS + JS)",
+          "├── <style> — CSS Grid + responsive + RTL support",
+          "├── <div id='app'> — container رئيسي",
+          "└── <script> — كل الـ logic",
+          "     ├── doctors[] — مصفوفة الأطباء",
+          "     ├── bookSlot() — منطق الحجز",
+          "     ├── cancelSlot() — منطق الإلغاء",
+          "     ├── renderGrid() — رسم الجدول",
+          "     └── showToast() — رسائل التنبيه"
+        ]
+      },
+      "position": { "x": 460, "y": 80 },
+      "width": 360,
+      "height": 320,
+      "parentId": "group-s4-20260513-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "s4-frontend-3",
+      "type": "s4-frontend-node",
+      "data": {
+        "label": "Frontend Code",
+        "description": "تنفيذ واجهة المستخدم",
+        "points": [
+          "HTML: 3 doctor tabs + slot grid + booking modal + toast",
+          "CSS: CSS Grid 4x3 للـ slots + dark theme + RTL",
+          "JS Events: click tab → render grid → click slot → open form",
+          "Responsive: @media queries للموبايل",
+          "Accessibility: aria-labels + keyboard navigation"
+        ]
+      },
+      "position": { "x": 880, "y": 80 },
+      "width": 360,
+      "height": 260,
+      "parentId": "group-s4-20260513-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "s4-validation-4",
+      "type": "s4-validation-node",
+      "data": {
+        "label": "Code Validation",
+        "description": "مراجعة الكود والتحقق",
+        "points": [
+          "Traceability: كل function ← S3 task ← S2 component ← S1 feature",
+          "bookSlot() يطبق HR-1: slot واحد = مريض واحد",
+          "renderGrid() يعكس S2 SlotGrid component spec",
+          "localStorage format يطابق S2 Data Model",
+          "لا dead code — كل سطر له غرض",
+          "Budget check: 380 سطر < 500 limit ✅"
+        ]
+      },
+      "position": { "x": 40, "y": 440 },
+      "width": 360,
+      "height": 300,
+      "parentId": "group-s4-20260513-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "s4-integration-5",
+      "type": "s4-integration-node",
+      "data": {
+        "label": "Integration",
+        "description": "تكامل المكونات",
+        "points": [
+          "DoctorSelector ↔ SlotGrid: يتغير الجدول عند تغيير الـ tab",
+          "SlotGrid ↔ BookingForm: الـ modal يفتح عند ضغط slot فاضي",
+          "BookingForm ↔ BookingEngine: الحجز يتم atomically",
+          "BookingEngine ↔ StorageAdapter: البيانات تتحفظ فوراً",
+          "CancelAction ↔ BookingEngine: الإلغاء يحرر الـ slot فوراً"
+        ]
+      },
+      "position": { "x": 460, "y": 440 },
+      "width": 360,
+      "height": 260,
+      "parentId": "group-s4-20260513-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "s4-gate-6",
+      "type": "gate-code",
+      "data": {
+        "label": "Code Gate ✅",
+        "description": "بوابة الكود — مراجعة مشتركة إنسان + AI",
+        "gateStatus": "approved",
+        "decisionAuthority": "Human + AI",
+        "gateChecklist": [
+          "الكود ينفذ كل tasks من S3",
+          "كل function لها مرجع في S2 components",
+          "localStorage format يطابق S2 Data Model",
+          "لا dependencies خارجية",
+          "Budget 500 سطر لم يُتجاوز",
+          "Code review من إنسان تم"
+        ]
+      },
+      "position": { "x": 400, "y": 820 },
+      "width": 600,
+      "height": 200,
+      "parentId": "group-s4-20260513-pro001",
+      "extent": "parent"
+    }
+  ],
+  "edges": [
+    { "id": "e-s4-stage-structure", "type": "custom", "source": "s4-stage-1", "target": "s4-structure-2" },
+    { "id": "e-s4-structure-frontend", "type": "custom", "source": "s4-structure-2", "target": "s4-frontend-3" },
+    { "id": "e-s4-stage-validation", "type": "custom", "source": "s4-stage-1", "target": "s4-validation-4" },
+    { "id": "e-s4-validation-integration", "type": "custom", "source": "s4-validation-4", "target": "s4-integration-5" },
+    { "id": "e-s4-frontend-gate", "type": "custom", "source": "s4-frontend-3", "target": "s4-gate-6" },
+    { "id": "e-s4-integration-gate", "type": "custom", "source": "s4-integration-5", "target": "s4-gate-6" }
+  ],
+  "evidence": [],
+  "exportedAt": "2026-05-13T10:50:00.000Z"
+}

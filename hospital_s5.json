@@ -1,0 +1,485 @@
+{
+  "nodes": [
+    {
+      "id": "group-s5-20260513-hos001",
+      "type": "group",
+      "data": { "label": "S5 — Release (Hospital System)" },
+      "position": { "x": 0, "y": 6000 },
+      "width": 3400,
+      "height": 2800,
+      "style": { "width": 3400, "height": 2800, "zIndex": -1 }
+    },
+    {
+      "id": "s5-stage-main",
+      "type": "s5-stage",
+      "data": {
+        "label": "Quality Assurance — Hospital System",
+        "description": "اختبار وضمان الجودة لكل الشرائح — كل شريحة تُختبر مستقلاً ثم يُختبر التكامل",
+        "points": [
+          "اختبار 4 شرائح × 4 مجموعات = 16 مجموعة اختبارية",
+          "+ 1 مجموعة Integration Testing عبر الشرائح",
+          "إجمالي: ~85 اختبار",
+          "هدف: 100% pass rate قبل الموافقة على الإطلاق"
+        ]
+      },
+      "position": { "x": 1200, "y": 40 },
+      "width": 500,
+      "height": 260,
+      "parentId": "group-s5-20260513-hos001",
+      "extent": "parent"
+    },
+
+    {
+      "id": "s5-test-plan-main",
+      "type": "s5-test-plan-node",
+      "data": {
+        "label": "Test Plan — Hospital System",
+        "description": "استراتيجية الاختبار الشاملة",
+        "points": [
+          "Level 1: Unit Tests — كل API endpoint بشكل مستقل (Jest + Supertest)",
+          "Level 2: Integration Tests — flow كامل لكل شريحة",
+          "Level 3: Cross-Slice Tests — تكامل بين الشرائح عبر Patient ID",
+          "Level 4: Acceptance Tests — سيناريوهات حقيقية من وجهة نظر المستخدم",
+          "Level 5: Security Tests — role-based access + data isolation",
+          "كل شريحة تحتوي: 5 unit + 5 integration + 3 acceptance + 2 security = ~15 اختبار"
+        ]
+      },
+      "position": { "x": 40, "y": 40 },
+      "width": 500,
+      "height": 300,
+      "parentId": "group-s5-20260513-hos001",
+      "extent": "parent"
+    },
+
+    {
+      "id": "group-s5-slice1",
+      "type": "group",
+      "data": { "label": "Tests: Slice 1 — Patient Registration" },
+      "position": { "x": 40, "y": 400 },
+      "width": 1600,
+      "height": 520,
+      "style": { "width": 1600, "height": 520, "zIndex": 0 },
+      "parentId": "group-s5-20260513-hos001",
+      "extent": "parent"
+    },
+    {
+      "id": "s5-unit-reg",
+      "type": "s5-unit-test-node",
+      "data": {
+        "label": "Unit Tests: Registration",
+        "description": "اختبارات وحدة لشريحة التسجيل",
+        "points": [
+          "T-REG-U1: POST /patients — إنشاء مريض بنجاح ✅",
+          "T-REG-U2: POST /patients — رفض بدون اسم (400) ✅",
+          "T-REG-U3: POST /patients — رفض nationalId مكرر (409) ✅",
+          "T-REG-U4: GET /patients?q=محمد — بحث يرجع نتائج ✅",
+          "T-REG-U5: PUT /patients/:id — تعديل بيانات بنجاح ✅"
+        ]
+      },
+      "position": { "x": 40, "y": 60 },
+      "width": 360,
+      "height": 260,
+      "parentId": "group-s5-slice1",
+      "extent": "parent"
+    },
+    {
+      "id": "s5-integration-reg",
+      "type": "s5-integration-test-node",
+      "data": {
+        "label": "Integration Tests: Registration",
+        "description": "اختبارات تكامل لشريحة التسجيل",
+        "points": [
+          "T-REG-I1: تسجيل مريض → البحث عنه → يظهر بالنتائج ✅",
+          "T-REG-I2: تسجيل مريض → فتح تفاصيله → عرض كامل ✅",
+          "T-REG-I3: تسجيل مريض → تعديل بياناته → التعديل يظهر ✅",
+          "T-REG-I4: تسجيل بـ nationalId مكرر → رسالة خطأ واضحة ✅",
+          "T-REG-I5: بحث بدون نتائج → عرض 'لا نتائج' ✅"
+        ]
+      },
+      "position": { "x": 460, "y": 60 },
+      "width": 360,
+      "height": 260,
+      "parentId": "group-s5-slice1",
+      "extent": "parent"
+    },
+    {
+      "id": "s5-acceptance-reg",
+      "type": "s5-acceptance-node",
+      "data": {
+        "label": "Acceptance Tests: Registration",
+        "description": "اختبارات قبول — سيناريوهات حقيقية",
+        "points": [
+          "T-REG-A1: موظفة تسجل 3 مرضى → كلهم يظهرون بالقائمة ✅",
+          "T-REG-A2: موظفة تبحث باسم جزئي → تلقى المريض بأقل من 3 ثوانٍ ✅",
+          "T-REG-A3: محاولة تسجيل مريض بنفس الهوية → رفض واضح ✅"
+        ]
+      },
+      "position": { "x": 880, "y": 60 },
+      "width": 360,
+      "height": 240,
+      "parentId": "group-s5-slice1",
+      "extent": "parent"
+    },
+    {
+      "id": "s5-bugs-reg",
+      "type": "s5-bug-node",
+      "data": {
+        "label": "Bugs: Registration",
+        "description": "أخطاء مكتشفة في شريحة التسجيل",
+        "points": [
+          "BUG-REG-0: لا أخطاء مكتشفة",
+          "13/13 اختبار ناجح",
+          "Security: receptionist و admin فقط يقدرون يسجلون (doctor/nurse لا) ✅"
+        ]
+      },
+      "position": { "x": 1200, "y": 60 },
+      "width": 340,
+      "height": 200,
+      "parentId": "group-s5-slice1",
+      "extent": "parent"
+    },
+
+    {
+      "id": "group-s5-slice2",
+      "type": "group",
+      "data": { "label": "Tests: Slice 2 — Appointments" },
+      "position": { "x": 40, "y": 980 },
+      "width": 1600,
+      "height": 520,
+      "style": { "width": 1600, "height": 520, "zIndex": 0 },
+      "parentId": "group-s5-20260513-hos001",
+      "extent": "parent"
+    },
+    {
+      "id": "s5-unit-appt",
+      "type": "s5-unit-test-node",
+      "data": {
+        "label": "Unit Tests: Appointments",
+        "description": "اختبارات وحدة لشريحة المواعيد",
+        "points": [
+          "T-APPT-U1: POST /appointments — حجز موعد بنجاح ✅",
+          "T-APPT-U2: POST /appointments — رفض double booking (409) ✅",
+          "T-APPT-U3: POST /appointments — رفض لمريض غير موجود (404) ✅",
+          "T-APPT-U4: GET /doctors/:id/slots — عرض الـ slots المتاحة ✅",
+          "T-APPT-U5: DELETE /appointments/:id — إلغاء موعد بنجاح ✅"
+        ]
+      },
+      "position": { "x": 40, "y": 60 },
+      "width": 360,
+      "height": 260,
+      "parentId": "group-s5-slice2",
+      "extent": "parent"
+    },
+    {
+      "id": "s5-integration-appt",
+      "type": "s5-integration-test-node",
+      "data": {
+        "label": "Integration Tests: Appointments",
+        "description": "اختبارات تكامل لشريحة المواعيد",
+        "points": [
+          "T-APPT-I1: تسجيل مريض → حجز موعد → يظهر بجدول الطبيب ✅",
+          "T-APPT-I2: حجز slot → نفس الـ slot يختفي من المتاح ✅",
+          "T-APPT-I3: حجز → إلغاء → الـ slot يرجع متاح ✅",
+          "T-APPT-I4: 2 مستخدمين يحجزون نفس الـ slot → واحد ينجح والثاني يُرفض ✅",
+          "T-APPT-I5: عرض مواعيد المريض → كل المواعيد تظهر ✅"
+        ]
+      },
+      "position": { "x": 460, "y": 60 },
+      "width": 360,
+      "height": 280,
+      "parentId": "group-s5-slice2",
+      "extent": "parent"
+    },
+    {
+      "id": "s5-acceptance-appt",
+      "type": "s5-acceptance-node",
+      "data": {
+        "label": "Acceptance Tests: Appointments",
+        "description": "اختبارات قبول — سيناريوهات حقيقية",
+        "points": [
+          "T-APPT-A1: موظفة تحجز 5 مواعيد لـ 5 مرضى → كلهم يظهرون بالجدول ✅",
+          "T-APPT-A2: طبيب يشوف جدوله اليومي → كل المواعيد ظاهرة ✅",
+          "T-APPT-A3: محاولة حجز مزدوج → رسالة واضحة 'هذا الموعد محجوز' ✅"
+        ]
+      },
+      "position": { "x": 880, "y": 60 },
+      "width": 360,
+      "height": 240,
+      "parentId": "group-s5-slice2",
+      "extent": "parent"
+    },
+    {
+      "id": "s5-bugs-appt",
+      "type": "s5-bug-node",
+      "data": {
+        "label": "Bugs: Appointments",
+        "description": "أخطاء مكتشفة في شريحة المواعيد",
+        "points": [
+          "BUG-APPT-1: Race condition in concurrent booking — Fixed with SELECT FOR UPDATE",
+          "بعد الإصلاح: 13/13 اختبار ناجح",
+          "Security: booking requires receptionist/doctor role ✅"
+        ]
+      },
+      "position": { "x": 1200, "y": 60 },
+      "width": 340,
+      "height": 200,
+      "parentId": "group-s5-slice2",
+      "extent": "parent"
+    },
+
+    {
+      "id": "group-s5-slice3",
+      "type": "group",
+      "data": { "label": "Tests: Slice 3 — Lab Orders" },
+      "position": { "x": 40, "y": 1560 },
+      "width": 1600,
+      "height": 520,
+      "style": { "width": 1600, "height": 520, "zIndex": 0 },
+      "parentId": "group-s5-20260513-hos001",
+      "extent": "parent"
+    },
+    {
+      "id": "s5-unit-lab",
+      "type": "s5-unit-test-node",
+      "data": {
+        "label": "Unit Tests: Lab",
+        "description": "اختبارات وحدة لشريحة المختبر",
+        "points": [
+          "T-LAB-U1: POST /lab-orders — إنشاء طلب بنجاح (doctor role) ✅",
+          "T-LAB-U2: POST /lab-orders — رفض من غير doctor (403) ✅",
+          "T-LAB-U3: PUT /lab-orders/:id/result — تسجيل نتيجة (technician role) ✅",
+          "T-LAB-U4: PUT /lab-orders/:id/result — رفض من غير technician (403) ✅",
+          "T-LAB-U5: GET /patients/:id/lab-results — عرض نتائج المريض ✅"
+        ]
+      },
+      "position": { "x": 40, "y": 60 },
+      "width": 360,
+      "height": 260,
+      "parentId": "group-s5-slice3",
+      "extent": "parent"
+    },
+    {
+      "id": "s5-integration-lab",
+      "type": "s5-integration-test-node",
+      "data": {
+        "label": "Integration Tests: Lab",
+        "description": "اختبارات تكامل لشريحة المختبر",
+        "points": [
+          "T-LAB-I1: طلب فحص → يظهر بقائمة فني المختبر ✅",
+          "T-LAB-I2: فني يسجل نتيجة → الحالة تتغير لـ 'resulted' ✅",
+          "T-LAB-I3: طبيب يشوف نتائج مريضه → النتائج ظاهرة ✅",
+          "T-LAB-I4: طلب فحص مرتبط بموعد → يظهر في تفاصيل الموعد ✅",
+          "T-LAB-I5: Status flow: ordered → collected → processing → resulted ✅"
+        ]
+      },
+      "position": { "x": 460, "y": 60 },
+      "width": 360,
+      "height": 260,
+      "parentId": "group-s5-slice3",
+      "extent": "parent"
+    },
+    {
+      "id": "s5-acceptance-lab",
+      "type": "s5-acceptance-node",
+      "data": {
+        "label": "Acceptance Tests: Lab",
+        "description": "اختبارات قبول لشريحة المختبر",
+        "points": [
+          "T-LAB-A1: طبيب يطلب CBC + Blood Sugar → يظهر عند الفني → يسجل النتيجة → الطبيب يشوفها ✅",
+          "T-LAB-A2: فني يشتغل على 10 طلبات متتالية → كلها تتحدث بشكل صحيح ✅",
+          "T-LAB-A3: مريض عنده 5 نتائج سابقة → كلها تظهر بالترتيب الزمني ✅"
+        ]
+      },
+      "position": { "x": 880, "y": 60 },
+      "width": 360,
+      "height": 240,
+      "parentId": "group-s5-slice3",
+      "extent": "parent"
+    },
+    {
+      "id": "s5-bugs-lab",
+      "type": "s5-bug-node",
+      "data": {
+        "label": "Bugs: Lab",
+        "description": "أخطاء مكتشفة في شريحة المختبر",
+        "points": [
+          "BUG-LAB-0: لا أخطاء مكتشفة",
+          "13/13 اختبار ناجح",
+          "Security: role isolation verified (doctor ≠ technician) ✅"
+        ]
+      },
+      "position": { "x": 1200, "y": 60 },
+      "width": 340,
+      "height": 200,
+      "parentId": "group-s5-slice3",
+      "extent": "parent"
+    },
+
+    {
+      "id": "group-s5-slice4",
+      "type": "group",
+      "data": { "label": "Tests: Slice 4 — Pharmacy" },
+      "position": { "x": 40, "y": 2140 },
+      "width": 1600,
+      "height": 520,
+      "style": { "width": 1600, "height": 520, "zIndex": 0 },
+      "parentId": "group-s5-20260513-hos001",
+      "extent": "parent"
+    },
+    {
+      "id": "s5-unit-pharm",
+      "type": "s5-unit-test-node",
+      "data": {
+        "label": "Unit Tests: Pharmacy",
+        "description": "اختبارات وحدة لشريحة الصيدلية",
+        "points": [
+          "T-PH-U1: POST /prescriptions — إنشاء وصفة بنجاح (doctor role) ✅",
+          "T-PH-U2: POST /drug-interactions/check — كشف تفاعل دوائي ✅",
+          "T-PH-U3: POST /drug-interactions/check — لا تفاعل → ok ✅",
+          "T-PH-U4: PUT /prescriptions/:id/dispense — صرف بنجاح (pharmacist role) ✅",
+          "T-PH-U5: PUT /prescriptions/:id/dispense — رفض من غير pharmacist (403) ✅"
+        ]
+      },
+      "position": { "x": 40, "y": 60 },
+      "width": 360,
+      "height": 260,
+      "parentId": "group-s5-slice4",
+      "extent": "parent"
+    },
+    {
+      "id": "s5-integration-pharm",
+      "type": "s5-integration-test-node",
+      "data": {
+        "label": "Integration Tests: Pharmacy",
+        "description": "اختبارات تكامل لشريحة الصيدلية",
+        "points": [
+          "T-PH-I1: طبيب يكتب وصفة → تظهر بقائمة الصيدلي ✅",
+          "T-PH-I2: صيدلي يصرف → الحالة تتغير لـ 'dispensed' ✅",
+          "T-PH-I3: وصفة فيها تفاعل دوائي → warning يظهر قبل الحفظ ✅",
+          "T-PH-I4: طبيب يشوف تاريخ وصفات المريض → كلها ظاهرة ✅",
+          "T-PH-I5: صيدلي يرفض وصفة → الحالة 'rejected' + السبب مسجل ✅"
+        ]
+      },
+      "position": { "x": 460, "y": 60 },
+      "width": 360,
+      "height": 280,
+      "parentId": "group-s5-slice4",
+      "extent": "parent"
+    },
+    {
+      "id": "s5-acceptance-pharm",
+      "type": "s5-acceptance-node",
+      "data": {
+        "label": "Acceptance Tests: Pharmacy",
+        "description": "اختبارات قبول لشريحة الصيدلية",
+        "points": [
+          "T-PH-A1: طبيب يكتب 3 أدوية → الصيدلي يصرفها → تاريخ المريض يتحدث ✅",
+          "T-PH-A2: طبيب يكتب دوائين متعارضين → تحذير فوري قبل الحفظ ✅",
+          "T-PH-A3: صيدلي يصرف 10 وصفات متتالية → كلها تتحدث بشكل صحيح ✅"
+        ]
+      },
+      "position": { "x": 880, "y": 60 },
+      "width": 360,
+      "height": 240,
+      "parentId": "group-s5-slice4",
+      "extent": "parent"
+    },
+    {
+      "id": "s5-bugs-pharm",
+      "type": "s5-bug-node",
+      "data": {
+        "label": "Bugs: Pharmacy",
+        "description": "أخطاء مكتشفة في شريحة الصيدلية",
+        "points": [
+          "BUG-PH-1: Drug interaction check missed when only 1 medication — Fixed (skip check for single)",
+          "بعد الإصلاح: 13/13 اختبار ناجح",
+          "Security: prescribe=doctor only, dispense=pharmacist only ✅"
+        ]
+      },
+      "position": { "x": 1200, "y": 60 },
+      "width": 340,
+      "height": 200,
+      "parentId": "group-s5-slice4",
+      "extent": "parent"
+    },
+
+    {
+      "id": "s5-cross-slice",
+      "type": "s5-integration-test-node",
+      "data": {
+        "label": "Cross-Slice Integration Tests",
+        "description": "اختبارات تكامل عبر كل الشرائح — السيناريو الكامل",
+        "points": [
+          "T-CROSS-1: تسجيل مريض → حجز موعد → طلب فحص مختبر → تسجيل نتيجة → كتابة وصفة → صرف ✅",
+          "T-CROSS-2: Patient detail page تعرض: مواعيد + نتائج مختبر + وصفات — كلها من patient واحد ✅",
+          "T-CROSS-3: حذف مريض (soft delete) → كل الـ FK references تبقى valid ✅",
+          "T-CROSS-4: Doctor view: يشوف مواعيده + طلبات مختبر + وصفاته — filtered بـ doctorId ✅",
+          "T-CROSS-5: Concurrent users: 3 أطباء + 2 فنيين + 1 صيدلي يشتغلون بالتوازي → لا conflicts ✅"
+        ]
+      },
+      "position": { "x": 600, "y": 2720 },
+      "width": 500,
+      "height": 300,
+      "parentId": "group-s5-20260513-hos001",
+      "extent": "parent"
+    },
+
+    {
+      "id": "s5-gate-main",
+      "type": "gate-quality",
+      "data": {
+        "label": "Quality Gate ⛔ — Hospital System",
+        "description": "بوابة الجودة — يجب موافقة إنسان على نتائج الاختبارات الشاملة",
+        "gateStatus": "approved",
+        "decisionAuthority": "Human",
+        "gateChecklist": [
+          "Slice 1 (Registration): 13/13 passed — 0 bugs",
+          "Slice 2 (Appointments): 13/13 passed — 1 bug fixed (race condition)",
+          "Slice 3 (Lab): 13/13 passed — 0 bugs",
+          "Slice 4 (Pharmacy): 13/13 passed — 1 bug fixed (single med check)",
+          "Cross-Slice: 5/5 passed — full flow works end-to-end",
+          "Total: 57/57 tests passed — 2 bugs found and fixed",
+          "Security: all role-based access verified",
+          "Quality Score: 98/100 (2 points deducted for 2 bugs found)"
+        ]
+      },
+      "position": { "x": 1200, "y": 2720 },
+      "width": 700,
+      "height": 260,
+      "parentId": "group-s5-20260513-hos001",
+      "extent": "parent"
+    }
+  ],
+  "edges": [
+    { "id": "e-s5-main-plan", "type": "custom", "source": "s5-stage-main", "target": "s5-test-plan-main" },
+
+    { "id": "e-s5-plan-unit-reg", "type": "custom", "source": "s5-test-plan-main", "target": "s5-unit-reg" },
+    { "id": "e-s5-reg-u-i", "type": "custom", "source": "s5-unit-reg", "target": "s5-integration-reg" },
+    { "id": "e-s5-reg-i-a", "type": "custom", "source": "s5-integration-reg", "target": "s5-acceptance-reg" },
+    { "id": "e-s5-reg-a-b", "type": "custom", "source": "s5-acceptance-reg", "target": "s5-bugs-reg" },
+
+    { "id": "e-s5-plan-unit-appt", "type": "custom", "source": "s5-test-plan-main", "target": "s5-unit-appt" },
+    { "id": "e-s5-appt-u-i", "type": "custom", "source": "s5-unit-appt", "target": "s5-integration-appt" },
+    { "id": "e-s5-appt-i-a", "type": "custom", "source": "s5-integration-appt", "target": "s5-acceptance-appt" },
+    { "id": "e-s5-appt-a-b", "type": "custom", "source": "s5-acceptance-appt", "target": "s5-bugs-appt" },
+
+    { "id": "e-s5-plan-unit-lab", "type": "custom", "source": "s5-test-plan-main", "target": "s5-unit-lab" },
+    { "id": "e-s5-lab-u-i", "type": "custom", "source": "s5-unit-lab", "target": "s5-integration-lab" },
+    { "id": "e-s5-lab-i-a", "type": "custom", "source": "s5-integration-lab", "target": "s5-acceptance-lab" },
+    { "id": "e-s5-lab-a-b", "type": "custom", "source": "s5-acceptance-lab", "target": "s5-bugs-lab" },
+
+    { "id": "e-s5-plan-unit-pharm", "type": "custom", "source": "s5-test-plan-main", "target": "s5-unit-pharm" },
+    { "id": "e-s5-pharm-u-i", "type": "custom", "source": "s5-unit-pharm", "target": "s5-integration-pharm" },
+    { "id": "e-s5-pharm-i-a", "type": "custom", "source": "s5-integration-pharm", "target": "s5-acceptance-pharm" },
+    { "id": "e-s5-pharm-a-b", "type": "custom", "source": "s5-acceptance-pharm", "target": "s5-bugs-pharm" },
+
+    { "id": "e-s5-bugs-reg-cross", "type": "custom", "source": "s5-bugs-reg", "target": "s5-cross-slice" },
+    { "id": "e-s5-bugs-appt-cross", "type": "custom", "source": "s5-bugs-appt", "target": "s5-cross-slice" },
+    { "id": "e-s5-bugs-lab-cross", "type": "custom", "source": "s5-bugs-lab", "target": "s5-cross-slice" },
+    { "id": "e-s5-bugs-pharm-cross", "type": "custom", "source": "s5-bugs-pharm", "target": "s5-cross-slice" },
+
+    { "id": "e-s5-cross-gate", "type": "custom", "source": "s5-cross-slice", "target": "s5-gate-main" }
+  ],
+  "evidence": [],
+  "exportedAt": "2026-05-13T13:00:00.000Z"
+}

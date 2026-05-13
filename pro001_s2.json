@@ -1,0 +1,168 @@
+{
+  "nodes": [
+    {
+      "id": "group-s2-20260513-pro001",
+      "type": "group",
+      "data": { "label": "S2 — Architecture" },
+      "position": { "x": 120, "y": 3300 },
+      "width": 1600,
+      "height": 1200,
+      "style": { "width": 1600, "height": 1200, "zIndex": -1 }
+    },
+    {
+      "id": "s2-stage-1",
+      "type": "s2-stage",
+      "data": {
+        "label": "Architecture Spine",
+        "description": "الهيكل المعماري والتقنيات المختارة",
+        "points": [
+          "تطبيق ويب Single Page — ملف HTML واحد",
+          "لا backend — localStorage للتخزين",
+          "Vanilla JS + CSS — بدون frameworks",
+          "Responsive design — يعمل على موبايل وكمبيوتر"
+        ]
+      },
+      "position": { "x": 40, "y": 80 },
+      "width": 360,
+      "height": 260,
+      "parentId": "group-s2-20260513-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "s2-domains-2",
+      "type": "s2-domains-node",
+      "data": {
+        "label": "Domain Model",
+        "description": "المفاهيم الأساسية في النطاق",
+        "points": [
+          "Doctor: { index, name, color } — طبيب العيادة",
+          "Slot: { doctorIndex, slotIndex, time } — خانة موعد",
+          "Booking: { key: doctorIndex_slotIndex, value: patientName } — حجز",
+          "Schedule: Doctor → Slot[] → Booking? — جدول الطبيب اليومي"
+        ]
+      },
+      "position": { "x": 460, "y": 80 },
+      "width": 360,
+      "height": 260,
+      "parentId": "group-s2-20260513-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "s2-components-3",
+      "type": "s2-components-node",
+      "data": {
+        "label": "System Components",
+        "description": "المكونات المعمارية الرئيسية",
+        "points": [
+          "DoctorSelector (UI): عرض tabs الأطباء — يرندر 3 tabs",
+          "SlotGrid (UI): شبكة المواعيد لكل طبيب — 12 خانة",
+          "BookingForm (UI): نموذج الحجز — اسم المريض + تأكيد",
+          "BookingEngine (Logic): check-then-write atomically",
+          "StorageAdapter (Data): JSON.parse/stringify → localStorage",
+          "ToastNotifier (UI): رسائل تأكيد/خطأ"
+        ]
+      },
+      "position": { "x": 880, "y": 80 },
+      "width": 360,
+      "height": 300,
+      "parentId": "group-s2-20260513-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "s2-interactions-4",
+      "type": "s2-interactions-node",
+      "data": {
+        "label": "Component Interactions",
+        "description": "كيف المكونات تتواصل مع بعض",
+        "points": [
+          "DoctorSelector → SlotGrid: يرسل doctorIndex المختار",
+          "SlotGrid → BookingForm: يرسل slotIndex + doctorIndex",
+          "BookingForm → BookingEngine: يرسل { doctor, slot, patientName }",
+          "BookingEngine → StorageAdapter: check(key) → write(key, name)",
+          "BookingEngine → ToastNotifier: يرسل نتيجة (success/error)",
+          "StorageAdapter → SlotGrid: يحدّث حالة الخانات",
+          "CancelAction → BookingEngine → StorageAdapter: delete(key)"
+        ]
+      },
+      "position": { "x": 40, "y": 420 },
+      "width": 380,
+      "height": 300,
+      "parentId": "group-s2-20260513-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "s2-data-5",
+      "type": "s2-data-domains-node",
+      "data": {
+        "label": "Data Domains",
+        "description": "نموذج البيانات والتخزين",
+        "points": [
+          "Storage: localStorage — key: 'clinic_bookings'",
+          "Format: JSON string → Record<string, string>",
+          "Key Pattern: {doctorIndex}_{slotIndex} (e.g. '0_3')",
+          "Value: اسم المريض (e.g. 'محمد أحمد')",
+          "Operations: READ → CHECK → ADD/REMOVE → WRITE",
+          "Constraint: key فريد — لا يمكن الكتابة فوق قيمة موجودة"
+        ]
+      },
+      "position": { "x": 480, "y": 420 },
+      "width": 360,
+      "height": 300,
+      "parentId": "group-s2-20260513-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "s2-constraints-6",
+      "type": "s2-constraints-node",
+      "data": {
+        "label": "Tech Constraints",
+        "description": "قيود تقنية يجب مراعاتها",
+        "points": [
+          "لا server-side — كل شيء في المتصفح",
+          "لا database — localStorage فقط (حد 5MB كافي)",
+          "لا dependencies — vanilla JS/CSS فقط",
+          "ملف واحد: index.html — سهولة الاستضافة",
+          "لا authentication — النسخة الأولى بدون login"
+        ]
+      },
+      "position": { "x": 900, "y": 420 },
+      "width": 360,
+      "height": 260,
+      "parentId": "group-s2-20260513-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "s2-gate-7",
+      "type": "gate-architecture",
+      "data": {
+        "label": "Architecture Gate ⛔",
+        "description": "بوابة المعمارية — يجب موافقة إنسان على القرارات التقنية",
+        "gateStatus": "approved",
+        "decisionAuthority": "Human",
+        "gateChecklist": [
+          "Domain Model واضح ومتوافق مع PD/S0",
+          "Components محددة بمسؤولياتها",
+          "Interactions واضحة — كل سهم له معنى",
+          "Data Model يدعم كل الـ use cases من S1",
+          "Tech Constraints متوافقة مع القيود من PD"
+        ]
+      },
+      "position": { "x": 400, "y": 820 },
+      "width": 600,
+      "height": 200,
+      "parentId": "group-s2-20260513-pro001",
+      "extent": "parent"
+    }
+  ],
+  "edges": [
+    { "id": "e-s2-stage-domains", "type": "custom", "source": "s2-stage-1", "target": "s2-domains-2" },
+    { "id": "e-s2-domains-components", "type": "custom", "source": "s2-domains-2", "target": "s2-components-3" },
+    { "id": "e-s2-components-interactions", "type": "custom", "source": "s2-components-3", "target": "s2-interactions-4" },
+    { "id": "e-s2-stage-data", "type": "custom", "source": "s2-stage-1", "target": "s2-data-5" },
+    { "id": "e-s2-data-constraints", "type": "custom", "source": "s2-data-5", "target": "s2-constraints-6" },
+    { "id": "e-s2-interactions-gate", "type": "custom", "source": "s2-interactions-4", "target": "s2-gate-7" },
+    { "id": "e-s2-constraints-gate", "type": "custom", "source": "s2-constraints-6", "target": "s2-gate-7" }
+  ],
+  "evidence": [],
+  "exportedAt": "2026-05-13T10:30:00.000Z"
+}

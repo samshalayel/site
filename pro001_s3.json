@@ -1,0 +1,145 @@
+{
+  "nodes": [
+    {
+      "id": "group-s3-20260513-pro001",
+      "type": "group",
+      "data": { "label": "S3 — Development" },
+      "position": { "x": 120, "y": 4700 },
+      "width": 1600,
+      "height": 1200,
+      "style": { "width": 1600, "height": 1200, "zIndex": -1 }
+    },
+    {
+      "id": "s3-stage-1",
+      "type": "s3-stage",
+      "data": {
+        "label": "Production Slice",
+        "description": "بناء أول شريحة عمودية كاملة end-to-end",
+        "points": [
+          "الشريحة الأولى: حجز موعد لطبيب واحد (flow كامل)",
+          "من الاختيار → الحجز → التأكيد → العرض → الإلغاء",
+          "بعد نجاح الشريحة الأولى: إضافة باقي الأطباء"
+        ]
+      },
+      "position": { "x": 40, "y": 80 },
+      "width": 360,
+      "height": 220,
+      "parentId": "group-s3-20260513-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "s3-slice-2",
+      "type": "s3-slice-node",
+      "data": {
+        "label": "Feature Slice",
+        "description": "تفصيل الشريحة العمودية",
+        "points": [
+          "UI Layer: DoctorSelector + SlotGrid + BookingForm",
+          "Logic Layer: BookingEngine (check-then-write)",
+          "Data Layer: StorageAdapter (localStorage)",
+          "Feedback Layer: ToastNotifier (success/error)",
+          "المخرج: حجز موعد واحد → يظهر في الجدول → يمكن إلغاؤه"
+        ]
+      },
+      "position": { "x": 460, "y": 80 },
+      "width": 360,
+      "height": 260,
+      "parentId": "group-s3-20260513-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "s3-contract-3",
+      "type": "s3-contract-node",
+      "data": {
+        "label": "API Contract",
+        "description": "العقود الداخلية بين المكونات (لا API خارجي)",
+        "points": [
+          "bookSlot(doctor, slot, name) → { success: bool, message: string }",
+          "cancelSlot(doctor, slot) → { success: bool }",
+          "getBookings() → Record<string, string>",
+          "isSlotBooked(doctor, slot) → boolean",
+          "القاعدة: bookSlot يفشل إذا isSlotBooked === true"
+        ]
+      },
+      "position": { "x": 880, "y": 80 },
+      "width": 360,
+      "height": 260,
+      "parentId": "group-s3-20260513-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "s3-data-4",
+      "type": "s3-data-model-node",
+      "data": {
+        "label": "Data Model",
+        "description": "مخطط البيانات للشريحة",
+        "points": [
+          "Key: 'clinic_bookings' in localStorage",
+          "Value: JSON → { '0_3': 'محمد أحمد', '1_7': 'فاطمة علي' }",
+          "Doctor index: 0-2 (3 أطباء)",
+          "Slot index: 0-11 (12 موعد يومي لكل طبيب)",
+          "Constraint: key unique — no overwrite when value exists"
+        ]
+      },
+      "position": { "x": 40, "y": 420 },
+      "width": 360,
+      "height": 260,
+      "parentId": "group-s3-20260513-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "s3-tasks-5",
+      "type": "s3-task-plan-node",
+      "data": {
+        "label": "Task Breakdown",
+        "description": "خطة تنفيذ الشريحة الأولى",
+        "points": [
+          "Task 1: بناء HTML skeleton + CSS grid layout",
+          "Task 2: بناء DoctorSelector مع 3 tabs",
+          "Task 3: بناء SlotGrid مع 12 خانة لكل طبيب",
+          "Task 4: بناء BookingEngine مع check-then-write",
+          "Task 5: ربط BookingForm + ToastNotifier",
+          "Task 6: بناء CancelAction",
+          "Task 7: ربط كل شيء مع localStorage"
+        ]
+      },
+      "position": { "x": 460, "y": 420 },
+      "width": 360,
+      "height": 300,
+      "parentId": "group-s3-20260513-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "s3-gate-6",
+      "type": "gate-slice",
+      "data": {
+        "label": "Slice Gate ✅",
+        "description": "بوابة الشريحة — موافقة مشتركة إنسان + AI",
+        "gateStatus": "approved",
+        "decisionAuthority": "Human + AI",
+        "gateChecklist": [
+          "الشريحة تغطي flow كامل end-to-end",
+          "API Contracts واضحة ومتوافقة مع S2",
+          "Data Model يطابق S2 Data Domains",
+          "Tasks قابلة للتنفيذ ومتسلسلة",
+          "لا dependencies خارجية"
+        ]
+      },
+      "position": { "x": 400, "y": 820 },
+      "width": 600,
+      "height": 200,
+      "parentId": "group-s3-20260513-pro001",
+      "extent": "parent"
+    }
+  ],
+  "edges": [
+    { "id": "e-s3-stage-slice", "type": "custom", "source": "s3-stage-1", "target": "s3-slice-2" },
+    { "id": "e-s3-slice-contract", "type": "custom", "source": "s3-slice-2", "target": "s3-contract-3" },
+    { "id": "e-s3-stage-data", "type": "custom", "source": "s3-stage-1", "target": "s3-data-4" },
+    { "id": "e-s3-data-tasks", "type": "custom", "source": "s3-data-4", "target": "s3-tasks-5" },
+    { "id": "e-s3-contract-gate", "type": "custom", "source": "s3-contract-3", "target": "s3-gate-6" },
+    { "id": "e-s3-tasks-gate", "type": "custom", "source": "s3-tasks-5", "target": "s3-gate-6" }
+  ],
+  "evidence": [],
+  "exportedAt": "2026-05-13T10:40:00.000Z"
+}

@@ -1,0 +1,168 @@
+{
+  "nodes": [
+    {
+      "id": "group-s5-20260513-pro001",
+      "type": "group",
+      "data": { "label": "S5 — Release" },
+      "position": { "x": 120, "y": 7500 },
+      "width": 1600,
+      "height": 1200,
+      "style": { "width": 1600, "height": 1200, "zIndex": -1 }
+    },
+    {
+      "id": "s5-stage-1",
+      "type": "s5-stage",
+      "data": {
+        "label": "Quality Assurance",
+        "description": "اختبار وضمان الجودة قبل الإطلاق",
+        "points": [
+          "22 اختبار إجمالي عبر 4 مجموعات",
+          "هدف: 100% pass rate قبل الموافقة على الإطلاق",
+          "الاختبارات تغطي: Hard Rules + Flows + Edge Cases + Success Criteria"
+        ]
+      },
+      "position": { "x": 40, "y": 80 },
+      "width": 360,
+      "height": 220,
+      "parentId": "group-s5-20260513-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "s5-test-plan-2",
+      "type": "s5-test-plan-node",
+      "data": {
+        "label": "Test Plan",
+        "description": "استراتيجية وخطة الاختبار",
+        "points": [
+          "Suite 1: Hard Rules Verification — 5 اختبارات",
+          "Suite 2: User Flow Tests — 7 اختبارات",
+          "Suite 3: Edge Case Tests — 5 اختبارات",
+          "Suite 4: Acceptance Tests — 5 اختبارات",
+          "كل اختبار مرتبط بمرجع: S1 rule / S1 flow / S2 component",
+          "Manual testing: فتح index.html في المتصفح وتنفيذ السيناريوهات"
+        ]
+      },
+      "position": { "x": 460, "y": 80 },
+      "width": 360,
+      "height": 280,
+      "parentId": "group-s5-20260513-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "s5-unit-3",
+      "type": "s5-unit-test-node",
+      "data": {
+        "label": "Unit Tests",
+        "description": "اختبارات المكونات الفردية — Hard Rules",
+        "points": [
+          "T-HR-1: حجز slot ثم محاولة حجز نفس الـ slot — يرفض ✅",
+          "T-HR-2: حجز بدون اسم — يرفض ✅",
+          "T-HR-3: كل طبيب عنده 12 slot بالضبط — يتحقق ✅",
+          "T-HR-4: إلغاء حجز يحرر الـ slot — يتحقق ✅",
+          "T-HR-5: الحجز يتحفظ بعد refresh — يتحقق ✅"
+        ]
+      },
+      "position": { "x": 880, "y": 80 },
+      "width": 360,
+      "height": 260,
+      "parentId": "group-s5-20260513-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "s5-integration-4",
+      "type": "s5-integration-test-node",
+      "data": {
+        "label": "Integration Tests",
+        "description": "اختبارات تكامل النظام — User Flows",
+        "points": [
+          "T-UF-1: فتح الصفحة → عرض 3 أطباء ✅",
+          "T-UF-2: اختيار طبيب → عرض 12 slot ✅",
+          "T-UF-3: ضغط slot فاضي → فتح نموذج الحجز ✅",
+          "T-UF-4: إدخال اسم + حجز → تأكيد + الـ slot يتلون ✅",
+          "T-UF-5: ضغط slot محجوز → عرض خيار الإلغاء ✅",
+          "T-UF-6: إلغاء حجز → الـ slot يرجع فاضي ✅",
+          "T-UF-7: تغيير طبيب → الجدول يتحدث فوراً ✅"
+        ]
+      },
+      "position": { "x": 40, "y": 420 },
+      "width": 360,
+      "height": 300,
+      "parentId": "group-s5-20260513-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "s5-acceptance-5",
+      "type": "s5-acceptance-node",
+      "data": {
+        "label": "Acceptance Tests",
+        "description": "اختبارات القبول — Success Criteria من PD",
+        "points": [
+          "T-SC-1: صفر حالات Double Booking (حاولنا 10 مرات) ✅",
+          "T-SC-2: المريض حجز بـ 45 ثانية (< دقيقة) ✅",
+          "T-SC-3: الدكتور يشوف جدوله بضغطة واحدة ✅",
+          "T-SC-4: لا ورقة مطلوبة — كل شيء إلكتروني ✅",
+          "T-SC-5: تأكيد فوري يظهر بعد الحجز ✅"
+        ]
+      },
+      "position": { "x": 460, "y": 420 },
+      "width": 360,
+      "height": 260,
+      "parentId": "group-s5-20260513-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "s5-bugs-6",
+      "type": "s5-bug-node",
+      "data": {
+        "label": "Bug Tracking",
+        "description": "الأخطاء المكتشفة وحالتها",
+        "points": [
+          "BUG-0: لم يُكتشف أي خطأ في الاختبارات",
+          "Total: 22 اختبار — 22 ناجح — 0 فاشل",
+          "Quality Score: 100/100",
+          "Code Coverage: كل function مختبرة عبر flow واحد على الأقل"
+        ]
+      },
+      "position": { "x": 880, "y": 420 },
+      "width": 360,
+      "height": 240,
+      "parentId": "group-s5-20260513-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "s5-gate-7",
+      "type": "gate-quality",
+      "data": {
+        "label": "Quality Gate ⛔",
+        "description": "بوابة الجودة — يجب موافقة إنسان على نتائج الاختبارات",
+        "gateStatus": "approved",
+        "decisionAuthority": "Human",
+        "gateChecklist": [
+          "كل Hard Rules مختبرة ونجحت",
+          "كل User Flows مختبرة ونجحت",
+          "Edge Cases مغطاة",
+          "Success Criteria من PD متحققة",
+          "لا أخطاء مفتوحة (0 bugs)",
+          "Quality Score ≥ 95"
+        ]
+      },
+      "position": { "x": 400, "y": 780 },
+      "width": 600,
+      "height": 200,
+      "parentId": "group-s5-20260513-pro001",
+      "extent": "parent"
+    }
+  ],
+  "edges": [
+    { "id": "e-s5-stage-plan", "type": "custom", "source": "s5-stage-1", "target": "s5-test-plan-2" },
+    { "id": "e-s5-plan-unit", "type": "custom", "source": "s5-test-plan-2", "target": "s5-unit-3" },
+    { "id": "e-s5-plan-integration", "type": "custom", "source": "s5-test-plan-2", "target": "s5-integration-4" },
+    { "id": "e-s5-plan-acceptance", "type": "custom", "source": "s5-test-plan-2", "target": "s5-acceptance-5" },
+    { "id": "e-s5-unit-bugs", "type": "custom", "source": "s5-unit-3", "target": "s5-bugs-6" },
+    { "id": "e-s5-integration-gate", "type": "custom", "source": "s5-integration-4", "target": "s5-gate-7" },
+    { "id": "e-s5-acceptance-gate", "type": "custom", "source": "s5-acceptance-5", "target": "s5-gate-7" },
+    { "id": "e-s5-bugs-gate", "type": "custom", "source": "s5-bugs-6", "target": "s5-gate-7" }
+  ],
+  "evidence": [],
+  "exportedAt": "2026-05-13T11:00:00.000Z"
+}

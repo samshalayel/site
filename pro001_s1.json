@@ -1,0 +1,167 @@
+{
+  "nodes": [
+    {
+      "id": "group-s1-20260513-pro001",
+      "type": "group",
+      "data": { "label": "S1 — Product Shape" },
+      "position": { "x": 120, "y": 1900 },
+      "width": 1600,
+      "height": 1200,
+      "style": { "width": 1600, "height": 1200, "zIndex": -1 }
+    },
+    {
+      "id": "s1-stage-1",
+      "type": "s1-stage",
+      "data": {
+        "label": "Product Shape",
+        "description": "تعريف رؤية المنتج وحدود الـ MVP",
+        "points": [
+          "منتج: نظام حجز مواعيد لعيادة أسنان صغيرة (3 أطباء)",
+          "الرؤية: واجهة ويب واحدة بسيطة تنظم المواعيد وتمنع التداخل",
+          "MVP: حجز + إلغاء + عرض جدول — بدون ملفات طبية أو فواتير",
+          "الفرق عن الورقة: مصدر واحد + prevention بدل detection"
+        ]
+      },
+      "position": { "x": 40, "y": 80 },
+      "width": 360,
+      "height": 260,
+      "parentId": "group-s1-20260513-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "s1-insight-2",
+      "type": "s1-product-insight-node",
+      "data": {
+        "label": "Product Insight",
+        "description": "فهم المنتج الأعمق",
+        "points": [
+          "المستخدم الأول هو الموظفة — إذا ما استخدمته هي، فشل المنتج",
+          "الأطباء يحتاجون read-only فقط — لا يحجزون بأنفسهم",
+          "البساطة أهم من الميزات — أي تعقيد يخلي الموظفة ترجع للورقة",
+          "الحجز المزدوج هو الألم الأكبر — يجب أن يكون مستحيل تقنياً"
+        ]
+      },
+      "position": { "x": 460, "y": 80 },
+      "width": 360,
+      "height": 260,
+      "parentId": "group-s1-20260513-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "s1-personas-3",
+      "type": "s1-actors-node",
+      "data": {
+        "label": "User Personas",
+        "description": "المستخدمين المستهدفين واحتياجاتهم",
+        "points": [
+          "المريض: يحجز موعد ← يشوف المتاح ← يختار ← يحصل تأكيد",
+          "موظفة الاستقبال: تحجز نيابة عن المريض + تشوف كل الحجوزات + تلغي",
+          "الطبيب: يشوف جدوله اليومي فقط (read-only)",
+          "المدير (v2 — خارج MVP): يشوف إحصائيات الحجوزات"
+        ]
+      },
+      "position": { "x": 880, "y": 80 },
+      "width": 360,
+      "height": 260,
+      "parentId": "group-s1-20260513-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "s1-modules-4",
+      "type": "s1-modules-node",
+      "data": {
+        "label": "Feature Modules",
+        "description": "مجموعات الميزات الأساسية",
+        "points": [
+          "DoctorSelector — عرض tabs الأطباء الثلاثة",
+          "SlotGrid — شبكة المواعيد المتاحة لكل طبيب",
+          "BookingForm — نموذج الحجز (اسم المريض + تأكيد)",
+          "CancelAction — إلغاء حجز موجود",
+          "DailySchedule — عرض جدول اليوم لكل طبيب"
+        ]
+      },
+      "position": { "x": 40, "y": 420 },
+      "width": 360,
+      "height": 260,
+      "parentId": "group-s1-20260513-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "s1-procedures-5",
+      "type": "s1-procedures-node",
+      "data": {
+        "label": "User Procedures",
+        "description": "سير عمل المستخدم الأساسي",
+        "points": [
+          "1. فتح الصفحة → عرض أطباء العيادة",
+          "2. اختيار طبيب (tab) → عرض الجدول اليومي",
+          "3. اختيار slot فاضي → فتح نموذج الحجز",
+          "4. إدخال اسم المريض → ضغط حجز → تأكيد فوري",
+          "5. عرض الحجوزات → ضغط إلغاء → تأكيد الإلغاء → الـ slot يرجع فاضي",
+          "قاعدة: slot واحد = مريض واحد (لا يمكن الحجز المزدوج)"
+        ]
+      },
+      "position": { "x": 460, "y": 420 },
+      "width": 360,
+      "height": 300,
+      "parentId": "group-s1-20260513-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "s1-boundary-6",
+      "type": "s1-boundary-node",
+      "data": {
+        "label": "MVP Boundary",
+        "description": "حدود النسخة الأولى (MVP)",
+        "points": [
+          "✅ MVP: حجز مواعيد لـ 3 أطباء",
+          "✅ MVP: عرض جدول يومي لكل طبيب",
+          "✅ MVP: منع الحجز المزدوج (enforcement)",
+          "✅ MVP: إلغاء حجز",
+          "❌ خارج: إشعارات SMS/Email",
+          "❌ خارج: ملفات طبية",
+          "❌ خارج: تقارير إحصائية",
+          "❌ خارج: حجز متعدد الفروع"
+        ]
+      },
+      "position": { "x": 880, "y": 420 },
+      "width": 360,
+      "height": 300,
+      "parentId": "group-s1-20260513-pro001",
+      "extent": "parent"
+    },
+    {
+      "id": "s1-gate-7",
+      "type": "gate-product",
+      "data": {
+        "label": "Product Gate ⛔",
+        "description": "بوابة شكل المنتج — يجب موافقة إنسان على حدود المنتج",
+        "gateStatus": "approved",
+        "decisionAuthority": "Human",
+        "gateChecklist": [
+          "رؤية المنتج واضحة ومحددة",
+          "User Personas معرّفين بسلوكياتهم",
+          "Feature Modules محددة ومتوافقة مع الأهداف",
+          "User Procedures واضحة ومتسلسلة",
+          "MVP Boundary محدد — فيه in و out صريح"
+        ]
+      },
+      "position": { "x": 400, "y": 820 },
+      "width": 600,
+      "height": 200,
+      "parentId": "group-s1-20260513-pro001",
+      "extent": "parent"
+    }
+  ],
+  "edges": [
+    { "id": "e-s1-stage-insight", "type": "custom", "source": "s1-stage-1", "target": "s1-insight-2" },
+    { "id": "e-s1-insight-personas", "type": "custom", "source": "s1-insight-2", "target": "s1-personas-3" },
+    { "id": "e-s1-stage-modules", "type": "custom", "source": "s1-stage-1", "target": "s1-modules-4" },
+    { "id": "e-s1-modules-procedures", "type": "custom", "source": "s1-modules-4", "target": "s1-procedures-5" },
+    { "id": "e-s1-personas-boundary", "type": "custom", "source": "s1-personas-3", "target": "s1-boundary-6" },
+    { "id": "e-s1-procedures-gate", "type": "custom", "source": "s1-procedures-5", "target": "s1-gate-7" },
+    { "id": "e-s1-boundary-gate", "type": "custom", "source": "s1-boundary-6", "target": "s1-gate-7" }
+  ],
+  "evidence": [],
+  "exportedAt": "2026-05-13T10:20:00.000Z"
+}

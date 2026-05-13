@@ -1,0 +1,466 @@
+{
+  "nodes": [
+    {
+      "id": "group-s4-20260513-hos001",
+      "type": "group",
+      "data": { "label": "S4 — Build (Hospital System)" },
+      "position": { "x": 0, "y": 3000 },
+      "width": 3400,
+      "height": 2800,
+      "style": { "width": 3400, "height": 2800, "zIndex": -1 }
+    },
+    {
+      "id": "s4-stage-main",
+      "type": "s4-stage",
+      "data": {
+        "label": "Code Implementation — Hospital System",
+        "description": "تنفيذ الكود لكل الشرائح الأربعة — كل شريحة تُبنى بشكل مستقل",
+        "points": [
+          "Tech Stack: Next.js 14 (App Router) + PostgreSQL + Prisma ORM",
+          "Architecture: Monorepo — shared types + per-slice modules",
+          "Auth: Role-based (doctor, nurse, receptionist, technician, pharmacist, admin)",
+          "Budget: ~2000 سطر backend + ~3000 سطر frontend لكل الشرائح"
+        ]
+      },
+      "position": { "x": 1200, "y": 40 },
+      "width": 500,
+      "height": 260,
+      "parentId": "group-s4-20260513-hos001",
+      "extent": "parent"
+    },
+
+    {
+      "id": "group-s4-slice1",
+      "type": "group",
+      "data": { "label": "Build: Slice 1 — Patient Registration" },
+      "position": { "x": 40, "y": 360 },
+      "width": 1600,
+      "height": 520,
+      "style": { "width": 1600, "height": 520, "zIndex": 0 },
+      "parentId": "group-s4-20260513-hos001",
+      "extent": "parent"
+    },
+    {
+      "id": "s4-structure-reg",
+      "type": "s4-code-structure-node",
+      "data": {
+        "label": "Code Structure: Registration",
+        "description": "هيكل الكود لشريحة التسجيل",
+        "points": [
+          "prisma/schema.prisma → Patient model",
+          "app/api/patients/route.ts → GET (list/search) + POST (create)",
+          "app/api/patients/[id]/route.ts → GET + PUT",
+          "app/patients/page.tsx → Patient list + search UI",
+          "app/patients/new/page.tsx → Registration form",
+          "lib/validators/patient.ts → Zod validation schemas"
+        ]
+      },
+      "position": { "x": 40, "y": 60 },
+      "width": 360,
+      "height": 280,
+      "parentId": "group-s4-slice1",
+      "extent": "parent"
+    },
+    {
+      "id": "s4-backend-reg",
+      "type": "s4-backend-node",
+      "data": {
+        "label": "Backend: Patient APIs",
+        "description": "تنفيذ API الخلفية",
+        "points": [
+          "POST /patients: validate → check nationalId unique → prisma.create → return patient",
+          "GET /patients?q=: prisma.findMany({ where: { OR: [name contains, nationalId contains] } })",
+          "GET /patients/:id: prisma.findUnique with relations",
+          "PUT /patients/:id: validate → prisma.update",
+          "Middleware: requireRole('receptionist', 'admin')",
+          "~200 سطر"
+        ]
+      },
+      "position": { "x": 460, "y": 60 },
+      "width": 360,
+      "height": 300,
+      "parentId": "group-s4-slice1",
+      "extent": "parent"
+    },
+    {
+      "id": "s4-frontend-reg",
+      "type": "s4-frontend-node",
+      "data": {
+        "label": "Frontend: Registration UI",
+        "description": "تنفيذ واجهة التسجيل",
+        "points": [
+          "PatientForm: React Hook Form + Zod validation",
+          "PatientSearch: debounced search input → live results",
+          "PatientList: data table with sort + filter",
+          "PatientDetail: view/edit patient info",
+          "Shared: toast notifications + loading states",
+          "~500 سطر"
+        ]
+      },
+      "position": { "x": 880, "y": 60 },
+      "width": 360,
+      "height": 280,
+      "parentId": "group-s4-slice1",
+      "extent": "parent"
+    },
+    {
+      "id": "s4-validation-reg",
+      "type": "s4-validation-node",
+      "data": {
+        "label": "Validation: Registration",
+        "description": "التحقق من جودة الكود",
+        "points": [
+          "Traceability: POST /patients ← S3 Contract ← S1 'تسجيل مريض جديد'",
+          "nationalId unique enforcement ← S3 Constraint",
+          "Zod schema matches Prisma model exactly",
+          "No dead code — كل endpoint مستخدم من UI",
+          "TypeScript strict: no any, no type assertions"
+        ]
+      },
+      "position": { "x": 1200, "y": 60 },
+      "width": 340,
+      "height": 260,
+      "parentId": "group-s4-slice1",
+      "extent": "parent"
+    },
+
+    {
+      "id": "group-s4-slice2",
+      "type": "group",
+      "data": { "label": "Build: Slice 2 — Appointments" },
+      "position": { "x": 40, "y": 940 },
+      "width": 1600,
+      "height": 520,
+      "style": { "width": 1600, "height": 520, "zIndex": 0 },
+      "parentId": "group-s4-20260513-hos001",
+      "extent": "parent"
+    },
+    {
+      "id": "s4-structure-appt",
+      "type": "s4-code-structure-node",
+      "data": {
+        "label": "Code Structure: Appointments",
+        "description": "هيكل الكود لشريحة المواعيد",
+        "points": [
+          "prisma/schema.prisma → Doctor, Slot, Appointment models",
+          "app/api/doctors/route.ts → GET doctors list",
+          "app/api/doctors/[id]/slots/route.ts → GET available slots",
+          "app/api/appointments/route.ts → GET + POST",
+          "app/appointments/page.tsx → Calendar view + booking",
+          "lib/validators/appointment.ts → booking validation + double-booking check"
+        ]
+      },
+      "position": { "x": 40, "y": 60 },
+      "width": 360,
+      "height": 280,
+      "parentId": "group-s4-slice2",
+      "extent": "parent"
+    },
+    {
+      "id": "s4-backend-appt",
+      "type": "s4-backend-node",
+      "data": {
+        "label": "Backend: Appointment APIs",
+        "description": "تنفيذ API المواعيد",
+        "points": [
+          "POST /appointments: validate → check slot available → prisma.create in transaction",
+          "Double-booking prevention: SELECT FOR UPDATE on (doctorId, slotId, date)",
+          "GET /doctors/:id/slots: compute available from schedule minus booked",
+          "DELETE /appointments/:id: prisma.update({ status: 'cancelled' })",
+          "Middleware: requireRole('receptionist', 'doctor', 'admin')",
+          "~350 سطر"
+        ]
+      },
+      "position": { "x": 460, "y": 60 },
+      "width": 360,
+      "height": 300,
+      "parentId": "group-s4-slice2",
+      "extent": "parent"
+    },
+    {
+      "id": "s4-frontend-appt",
+      "type": "s4-frontend-node",
+      "data": {
+        "label": "Frontend: Appointments UI",
+        "description": "تنفيذ واجهة المواعيد",
+        "points": [
+          "DoctorSelector: cards/tabs لكل طبيب مع تخصصه",
+          "CalendarView: week/day view مع slots ملونة (available/booked/cancelled)",
+          "BookingModal: search patient → select slot → confirm",
+          "AppointmentDetail: view details + cancel action",
+          "Real-time slot refresh: SWR revalidation بعد كل حجز",
+          "~800 سطر"
+        ]
+      },
+      "position": { "x": 880, "y": 60 },
+      "width": 360,
+      "height": 280,
+      "parentId": "group-s4-slice2",
+      "extent": "parent"
+    },
+    {
+      "id": "s4-integration-appt",
+      "type": "s4-integration-node",
+      "data": {
+        "label": "Integration: Appointments ↔ Registration",
+        "description": "تكامل المواعيد مع التسجيل",
+        "points": [
+          "BookingModal: يستخدم /patients?q= للبحث عن المريض",
+          "Appointment.patientId → FK to Patient.id",
+          "Patient detail page: يعرض قائمة مواعيد المريض",
+          "Shared types: PatientSummary used in appointment context",
+          "No circular dependency: appointments imports from patients, not vice versa"
+        ]
+      },
+      "position": { "x": 1200, "y": 60 },
+      "width": 340,
+      "height": 260,
+      "parentId": "group-s4-slice2",
+      "extent": "parent"
+    },
+
+    {
+      "id": "group-s4-slice3",
+      "type": "group",
+      "data": { "label": "Build: Slice 3 — Lab Orders" },
+      "position": { "x": 40, "y": 1520 },
+      "width": 1600,
+      "height": 520,
+      "style": { "width": 1600, "height": 520, "zIndex": 0 },
+      "parentId": "group-s4-20260513-hos001",
+      "extent": "parent"
+    },
+    {
+      "id": "s4-structure-lab",
+      "type": "s4-code-structure-node",
+      "data": {
+        "label": "Code Structure: Lab",
+        "description": "هيكل الكود لشريحة المختبر",
+        "points": [
+          "prisma/schema.prisma → LabTest, LabOrder, LabOrderItem models",
+          "app/api/lab-orders/route.ts → GET + POST",
+          "app/api/lab-orders/[id]/result/route.ts → PUT (technician)",
+          "app/lab/orders/page.tsx → Doctor: create order",
+          "app/lab/queue/page.tsx → Technician: pending queue",
+          "app/lab/results/page.tsx → Doctor: view results"
+        ]
+      },
+      "position": { "x": 40, "y": 60 },
+      "width": 360,
+      "height": 280,
+      "parentId": "group-s4-slice3",
+      "extent": "parent"
+    },
+    {
+      "id": "s4-backend-lab",
+      "type": "s4-backend-node",
+      "data": {
+        "label": "Backend: Lab APIs",
+        "description": "تنفيذ API المختبر",
+        "points": [
+          "POST /lab-orders: requireRole('doctor') → validate → create order + items",
+          "GET /lab-orders?status=: filter by status for technician queue",
+          "PUT /lab-orders/:id/result: requireRole('technician') → update items with results",
+          "GET /patients/:id/lab-results: aggregate results for doctor view",
+          "Status machine: ordered → sample_collected → processing → resulted",
+          "~300 سطر"
+        ]
+      },
+      "position": { "x": 460, "y": 60 },
+      "width": 360,
+      "height": 300,
+      "parentId": "group-s4-slice3",
+      "extent": "parent"
+    },
+    {
+      "id": "s4-frontend-lab",
+      "type": "s4-frontend-node",
+      "data": {
+        "label": "Frontend: Lab UI",
+        "description": "تنفيذ واجهة المختبر",
+        "points": [
+          "LabOrderForm (doctor): select patient → choose tests → submit",
+          "LabQueue (technician): pending orders table → click to enter results",
+          "ResultEntryForm: per-test input fields → submit all → mark resulted",
+          "PatientLabHistory (doctor): timeline of all lab results",
+          "Status badges: color-coded by status (pending=yellow, resulted=green)",
+          "~700 سطر"
+        ]
+      },
+      "position": { "x": 880, "y": 60 },
+      "width": 360,
+      "height": 280,
+      "parentId": "group-s4-slice3",
+      "extent": "parent"
+    },
+    {
+      "id": "s4-integration-lab",
+      "type": "s4-integration-node",
+      "data": {
+        "label": "Integration: Lab ↔ Patient ↔ Appointment",
+        "description": "تكامل المختبر مع بقية النظام",
+        "points": [
+          "LabOrder.patientId → FK to Patient.id",
+          "LabOrder.appointmentId → optional FK to Appointment.id",
+          "Doctor view: patient detail shows lab results tab",
+          "Appointment view: linked lab orders shown inline",
+          "Shared: PatientSummary + AppointmentSummary types"
+        ]
+      },
+      "position": { "x": 1200, "y": 60 },
+      "width": 340,
+      "height": 260,
+      "parentId": "group-s4-slice3",
+      "extent": "parent"
+    },
+
+    {
+      "id": "group-s4-slice4",
+      "type": "group",
+      "data": { "label": "Build: Slice 4 — Pharmacy" },
+      "position": { "x": 40, "y": 2100 },
+      "width": 1600,
+      "height": 520,
+      "style": { "width": 1600, "height": 520, "zIndex": 0 },
+      "parentId": "group-s4-20260513-hos001",
+      "extent": "parent"
+    },
+    {
+      "id": "s4-structure-pharm",
+      "type": "s4-code-structure-node",
+      "data": {
+        "label": "Code Structure: Pharmacy",
+        "description": "هيكل الكود لشريحة الصيدلية",
+        "points": [
+          "prisma/schema.prisma → Medication, Prescription, PrescriptionItem, DrugInteraction",
+          "app/api/prescriptions/route.ts → GET + POST",
+          "app/api/prescriptions/[id]/dispense/route.ts → PUT (pharmacist)",
+          "app/api/drug-interactions/check/route.ts → POST",
+          "app/pharmacy/prescribe/page.tsx → Doctor: write prescription",
+          "app/pharmacy/queue/page.tsx → Pharmacist: dispensing queue"
+        ]
+      },
+      "position": { "x": 40, "y": 60 },
+      "width": 360,
+      "height": 280,
+      "parentId": "group-s4-slice4",
+      "extent": "parent"
+    },
+    {
+      "id": "s4-backend-pharm",
+      "type": "s4-backend-node",
+      "data": {
+        "label": "Backend: Pharmacy APIs",
+        "description": "تنفيذ API الصيدلية",
+        "points": [
+          "POST /prescriptions: requireRole('doctor') → check interactions → create",
+          "Drug interaction check: query DrugInteraction table for all medication pairs",
+          "GET /prescriptions?status=pending: pharmacist queue",
+          "PUT /prescriptions/:id/dispense: requireRole('pharmacist') → update status",
+          "GET /patients/:id/prescriptions: prescription history",
+          "~350 سطر"
+        ]
+      },
+      "position": { "x": 460, "y": 60 },
+      "width": 360,
+      "height": 300,
+      "parentId": "group-s4-slice4",
+      "extent": "parent"
+    },
+    {
+      "id": "s4-frontend-pharm",
+      "type": "s4-frontend-node",
+      "data": {
+        "label": "Frontend: Pharmacy UI",
+        "description": "تنفيذ واجهة الصيدلية",
+        "points": [
+          "PrescriptionForm (doctor): search medications → add items → check interactions → submit",
+          "InteractionAlert: warning dialog when interactions detected (severity: high/medium/low)",
+          "PharmacyQueue (pharmacist): pending prescriptions → click to dispense",
+          "PatientPrescriptionHistory: timeline of all prescriptions",
+          "MedicationSearch: autocomplete from medication database",
+          "~750 سطر"
+        ]
+      },
+      "position": { "x": 880, "y": 60 },
+      "width": 360,
+      "height": 280,
+      "parentId": "group-s4-slice4",
+      "extent": "parent"
+    },
+    {
+      "id": "s4-integration-pharm",
+      "type": "s4-integration-node",
+      "data": {
+        "label": "Integration: Pharmacy ↔ Patient",
+        "description": "تكامل الصيدلية مع بقية النظام",
+        "points": [
+          "Prescription.patientId → FK to Patient.id",
+          "Doctor view: patient detail shows prescriptions tab",
+          "Drug interactions checked at prescription time (not dispensing time)",
+          "Pharmacist sees patient name + doctor name on each prescription",
+          "Shared: PatientSummary + MedicationSummary types"
+        ]
+      },
+      "position": { "x": 1200, "y": 60 },
+      "width": 340,
+      "height": 260,
+      "parentId": "group-s4-slice4",
+      "extent": "parent"
+    },
+
+    {
+      "id": "s4-gate-main",
+      "type": "gate-code",
+      "data": {
+        "label": "Code Gate ✅ — Hospital System",
+        "description": "بوابة الكود — مراجعة مشتركة إنسان + AI لكل الشرائح",
+        "gateStatus": "approved",
+        "decisionAuthority": "Human + AI",
+        "gateChecklist": [
+          "كل شريحة تنفذ S3 contracts بالضبط",
+          "TypeScript strict mode — no any, no untyped",
+          "Role-based access control مطبق على كل endpoint",
+          "Database migrations تعمل بدون errors",
+          "Integration بين الشرائح عبر FK references فقط",
+          "Code review من إنسان لكل شريحة",
+          "Total: ~5200 سطر (backend 1200 + frontend 2750 + shared 250 + tests 1000)"
+        ]
+      },
+      "position": { "x": 1100, "y": 2700 },
+      "width": 700,
+      "height": 220,
+      "parentId": "group-s4-20260513-hos001",
+      "extent": "parent"
+    }
+  ],
+  "edges": [
+    { "id": "e-s4-main-slice1", "type": "custom", "source": "s4-stage-main", "target": "s4-structure-reg" },
+    { "id": "e-s4-main-slice2", "type": "custom", "source": "s4-stage-main", "target": "s4-structure-appt" },
+    { "id": "e-s4-main-slice3", "type": "custom", "source": "s4-stage-main", "target": "s4-structure-lab" },
+    { "id": "e-s4-main-slice4", "type": "custom", "source": "s4-stage-main", "target": "s4-structure-pharm" },
+
+    { "id": "e-s4-reg-1-2", "type": "custom", "source": "s4-structure-reg", "target": "s4-backend-reg" },
+    { "id": "e-s4-reg-2-3", "type": "custom", "source": "s4-backend-reg", "target": "s4-frontend-reg" },
+    { "id": "e-s4-reg-3-4", "type": "custom", "source": "s4-frontend-reg", "target": "s4-validation-reg" },
+
+    { "id": "e-s4-appt-1-2", "type": "custom", "source": "s4-structure-appt", "target": "s4-backend-appt" },
+    { "id": "e-s4-appt-2-3", "type": "custom", "source": "s4-backend-appt", "target": "s4-frontend-appt" },
+    { "id": "e-s4-appt-3-4", "type": "custom", "source": "s4-frontend-appt", "target": "s4-integration-appt" },
+
+    { "id": "e-s4-lab-1-2", "type": "custom", "source": "s4-structure-lab", "target": "s4-backend-lab" },
+    { "id": "e-s4-lab-2-3", "type": "custom", "source": "s4-backend-lab", "target": "s4-frontend-lab" },
+    { "id": "e-s4-lab-3-4", "type": "custom", "source": "s4-frontend-lab", "target": "s4-integration-lab" },
+
+    { "id": "e-s4-pharm-1-2", "type": "custom", "source": "s4-structure-pharm", "target": "s4-backend-pharm" },
+    { "id": "e-s4-pharm-2-3", "type": "custom", "source": "s4-backend-pharm", "target": "s4-frontend-pharm" },
+    { "id": "e-s4-pharm-3-4", "type": "custom", "source": "s4-frontend-pharm", "target": "s4-integration-pharm" },
+
+    { "id": "e-s4-validation-gate", "type": "custom", "source": "s4-validation-reg", "target": "s4-gate-main" },
+    { "id": "e-s4-int-appt-gate", "type": "custom", "source": "s4-integration-appt", "target": "s4-gate-main" },
+    { "id": "e-s4-int-lab-gate", "type": "custom", "source": "s4-integration-lab", "target": "s4-gate-main" },
+    { "id": "e-s4-int-pharm-gate", "type": "custom", "source": "s4-integration-pharm", "target": "s4-gate-main" }
+  ],
+  "evidence": [],
+  "exportedAt": "2026-05-13T12:30:00.000Z"
+}
