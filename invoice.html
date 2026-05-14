@@ -10,13 +10,16 @@
         th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
         th { background-color: #f2f2f2; }
         .invoice-header { margin-bottom: 20px; }
+        input { margin-bottom: 10px; }
     </style>
 </head>
 <body>
     <div class="invoice-header">
         <h2>فاتورة معدات الحاسوب</h2>
         <label for="company-name">اسم الشركة:</label>
-        <input type="text" id="company-name" name="company-name"><br><br>
+        <input type="text" id="company-name" name="company-name" placeholder="ادخل اسم الشركة"><br>
+        <label for="invoice-number">رقم الفاتورة:</label>
+        <input type="text" id="invoice-number" name="invoice-number" placeholder="ادخل رقم الفاتورة"><br>
     </div>
     <table>
         <thead>
@@ -24,18 +27,40 @@
                 <th>المنتج</th>
                 <th>الكمية</th>
                 <th>السعر</th>
+                <th>التكلفة</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td><input type="text" name="product-name"></td>
-                <td><input type="number" name="product-quantity" value="1"></td>
-                <td><input type="text" name="product-price"></td>
+                <td><input type="text" name="product-name" placeholder="اسم المنتج"></td>
+                <td><input type="number" name="product-quantity" value="1" min="1"></td>
+                <td><input type="text" name="product-price" placeholder="السعر لكل وحدة"></td>
+                <td><span class="product-total">0.00</span> <span>دينار</span></td>
             </tr>
-            <!-- يمكن إضافة المزيد من الصفوف هنا حسب الحاجة -->
         </tbody>
     </table>
     <br>
-    <button type="button">حفظ الفاتورة</button>
+    <button type="button" onclick="saveInvoice()">حفظ الفاتورة</button>
+
+    <script>
+        function saveInvoice() {
+            // هنا يمكنك إضافة وظيفة لجمع بيانات الفاتورة وحفظها
+            alert('تم حفظ الفاتورة بنجاح!');
+        }
+
+        document.querySelectorAll('[name=product-quantity], [name=product-price]').forEach(input => {
+            input.addEventListener('input', calculateTotal);
+        });
+
+        function calculateTotal() {
+            const rows = document.querySelectorAll('tbody tr');
+            rows.forEach(row => {
+                const quantity = row.querySelector('[name=product-quantity]').value;
+                const price = row.querySelector('[name=product-price]').value;
+                const total = (quantity * price).toFixed(2);
+                row.querySelector('.product-total').innerText = total;
+            });
+        }
+    </script>
 </body>
 </html>
