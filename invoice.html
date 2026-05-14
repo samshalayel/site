@@ -1,65 +1,171 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>فاتورة المعدات</title>
+    <title>فاتورة معدات حاسوب</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
-        .invoice-header { margin-bottom: 20px; }
-        input { margin-bottom: 10px; }
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        .invoice-container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .company-details {
+            margin-bottom: 20px;
+        }
+        .company-details input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+        .total-row td {
+            font-weight: bold;
+        }
+        .buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
-    <div class="invoice-header">
-        <h2>فاتورة معدات الحاسوب</h2>
-        <label for="company-name">اسم الشركة:</label>
-        <input type="text" id="company-name" name="company-name" placeholder="ادخل اسم الشركة"><br>
-        <label for="invoice-number">رقم الفاتورة:</label>
-        <input type="text" id="invoice-number" name="invoice-number" placeholder="ادخل رقم الفاتورة"><br>
+    <div class="invoice-container">
+        <div class="company-details">
+            <input type="text" placeholder="اسم الشركة" id="companyName">
+            <input type="text" placeholder="هاتف" id="companyPhone">
+            <input type="text" placeholder="البريد الإلكتروني" id="companyEmail">
+            <input type="text" placeholder="العنوان" id="companyAddress">
+            <input type="date" id="invoiceDate">
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>الفئة</th>
+                    <th>الكمية</th>
+                    <th>السعر</th>
+                    <th>الإجمالي</th>
+                    <th>حذف</th>
+                </tr>
+            </thead>
+            <tbody id="itemsTable">
+                <tr>
+                    <td><input type="text" placeholder="الفئة"></td>
+                    <td><input type="number" min="0" placeholder="الكمية" class="quantity" oninput="calculateRowTotal(this)"></td>
+                    <td><input type="number" min="0" placeholder="السعر" class="price" oninput="calculateRowTotal(this)"></td>
+                    <td class="rowTotal">0</td>
+                    <td><button onclick="removeRow(this)">❌</button></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3">الإجمالي الكلي</td>
+                    <td id="grandTotal">0</td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div class="buttons">
+            <button onclick="addRow()">إضافة صنف</button>
+            <button onclick="saveInvoice()">حفظ الفاتورة</button>
+            <button onclick="printInvoice()">طباعة</button>
+        </div>
     </div>
-    <table>
-        <thead>
-            <tr>
-                <th>المنتج</th>
-                <th>الكمية</th>
-                <th>السعر</th>
-                <th>التكلفة</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><input type="text" name="product-name" placeholder="اسم المنتج"></td>
-                <td><input type="number" name="product-quantity" value="1" min="1"></td>
-                <td><input type="text" name="product-price" placeholder="السعر لكل وحدة"></td>
-                <td><span class="product-total">0.00</span> <span>دينار</span></td>
-            </tr>
-        </tbody>
-    </table>
-    <br>
-    <button type="button" onclick="saveInvoice()">حفظ الفاتورة</button>
 
     <script>
-        function saveInvoice() {
-            // هنا يمكنك إضافة وظيفة لجمع بيانات الفاتورة وحفظها
-            alert('تم حفظ الفاتورة بنجاح!');
+        function calculateRowTotal(input) {
+            let row = input.parentElement.parentElement;
+            let quantity = row.querySelector('.quantity').value;
+            let price = row.querySelector('.price').value;
+            let total = quantity * price;
+            row.querySelector('.rowTotal').innerText = total;
+            calculateGrandTotal();
         }
 
-        document.querySelectorAll('[name=product-quantity], [name=product-price]').forEach(input => {
-            input.addEventListener('input', calculateTotal);
-        });
-
-        function calculateTotal() {
-            const rows = document.querySelectorAll('tbody tr');
+        function calculateGrandTotal() {
+            let rows = document.querySelectorAll('#itemsTable tr');
+            let total = 0;
             rows.forEach(row => {
-                const quantity = row.querySelector('[name=product-quantity]').value;
-                const price = row.querySelector('[name=product-price]').value;
-                const total = (quantity * price).toFixed(2);
-                row.querySelector('.product-total').innerText = total;
+                total += parseFloat(row.querySelector('.rowTotal').innerText);
             });
+            document.getElementById('grandTotal').innerText = total;
+        }
+
+        function addRow() {
+            let row = document.createElement('tr');
+            row.innerHTML = `
+                <td><input type="text" placeholder="الفئة"></td>
+                <td><input type="number" min="0" placeholder="الكمية" class="quantity" oninput="calculateRowTotal(this)"></td>
+                <td><input type="number" min="0" placeholder="السعر" class="price" oninput="calculateRowTotal(this)"></td>
+                <td class="rowTotal">0</td>
+                <td><button onclick="removeRow(this)">❌</button></td>
+            `;
+            document.getElementById('itemsTable').appendChild(row);
+        }
+
+        function removeRow(button) {
+            let row = button.parentElement.parentElement;
+            row.remove();
+            calculateGrandTotal();
+        }
+
+        function saveInvoice() {
+            let invoice = {
+                companyName: document.getElementById('companyName').value,
+                companyPhone: document.getElementById('companyPhone').value,
+                companyEmail: document.getElementById('companyEmail').value,
+                companyAddress: document.getElementById('companyAddress').value,
+                invoiceDate: document.getElementById('invoiceDate').value,
+                items: []
+            };
+            let rows = document.querySelectorAll('#itemsTable tr');
+            rows.forEach(row => {
+                let item = {
+                    category: row.querySelector('input[type="text"]').value,
+                    quantity: row.querySelector('.quantity').value,
+                    price: row.querySelector('.price').value,
+                    rowTotal: row.querySelector('.rowTotal').innerText
+                };
+                invoice.items.push(item);
+            });
+            localStorage.setItem('invoice', JSON.stringify(invoice));
+            alert('تم حفظ الفاتورة');
+        }
+
+        function printInvoice() {
+            window.print();
         }
     </script>
 </body>
