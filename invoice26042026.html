@@ -1,178 +1,153 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html rtl="rtl" lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>فاتورة معدات حاسوب</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            direction: rtl;
-        }
-        .invoice {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            background-color: #f9f9f9;
-        }
-        .company-info {
-            text-align: right;
-            margin-bottom: 20px;
-        }
-        .invoice-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        .invoice-table th, .invoice-table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: right;
-        }
-        .invoice-table th {
-            background-color: #f2f2f2;
-        }
-        .total {
-            text-align: right;
-        }
-        .buttons {
-            text-align: center;
-            margin-top: 20px;
-        }
+        body { font-family: Arial, sans-serif; direction: rtl; margin: 0; padding: 0; background-color: #f4f4f9; color: #333; }
+        .invoice-container { width: 80%; margin: auto; background: #fff; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1 { background: #4287f5; color: #fff; padding: 10px; text-align: center; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { padding: 10px; text-align: center; border: 1px solid #ddd; }
+        th { background: #f8f8f8; }
+        .total { text-align: left; font-weight: bold; }
+        .add-row, .remove-row { cursor: pointer; color: #4287f5; }
+        .hide { display: none; }
     </style>
 </head>
 <body>
-    <div class="invoice">
-        <div class="company-info">
-            <h2>شركة معدات الحاسوب</h2>
-            <p>هاتف: 123456789</p>
-            <p>البريد الالكتروني: example@computerparts.com</p>
-            <p>العنوان: شارع التكنولوجيا، المدينة</p>
-            <p>التاريخ: <span id="invoice-date"></span></p>
+    <div class="invoice-container">
+        <h1>فاتورة معدات حاسوب</h1>
+        <div>
+            <label>اسم الشركة: <input type="text" id="companyName"></label>
+            <label>هاتف: <input type="text" id="phone"></label>
+            <label>بريد: <input type="email" id="email"></label>
+            <label>عنوان: <input type="text" id="address"></label>
+            <label>تاريخ: <input type="date" id="date"></label>
         </div>
-        <table class="invoice-table">
+        <table>
             <thead>
                 <tr>
                     <th>#</th>
                     <th>الصنف</th>
-                    <th>الوصف</th>
+                    <th>الفئة</th>
                     <th>الكمية</th>
                     <th>السعر</th>
                     <th>الإجمالي</th>
+                    <th><span class="add-row">إضافة</span></th>
                 </tr>
             </thead>
-            <tbody id="invoice-items">
+            <tbody id="invoiceBody">
                 <tr>
                     <td>1</td>
-                    <td>شاشة</td>
-                    <td>وصف الشاشة</td>
-                    <td><input type="number" value="1" class="quantity"></td>
-                    <td><input type="number" value="0" class="price"></td>
-                    <td class="total">0</td>
+                    <td><input type="text" class="item-name"></td>
+                    <td><input type="text" class="category"></td>
+                    <td><input type="number" class="quantity" value="1"></td>
+                    <td><input type="number" class="price" value="0"></td>
+                    <td class="line-total">0</td>
+                    <td><span class="remove-row hide">حذف</span></td>
                 </tr>
             </tbody>
         </table>
-        <div class="total">
-            <p>الإجمالي الفرعي: <span id="subtotal">0</span></p>
-            <p>الضريبة: <input type="number" value="5" id="tax">%</p>
-            <p>الخصم: <input type="number" value="0" id="discount"></p>
-            <p>الإجمالي الكلي: <span id="total">0</span></p>
+        <div>
+            <label>الضريبة (%): <input type="number" id="taxRate" value="0"></label>
+            <label>الخصم: <input type="number" id="discount" value="0"></label>
+            <hr>
+            <div>الإجمالي الكلي: <span id="grandTotal">0</span></div>
         </div>
-        <div class="buttons">
-            <button onclick="addItem()">إضافة صنف</button>
-            <button onclick="removeItem()">حذف صنف</button>
-            <button onclick="saveInvoice()">حفظ الفاتورة</button>
-            <button onclick="exportJSON()">تصدير JSON</button>
-            <button onclick="printInvoice()">طباعة</button>
-        </div>
+        <button onclick="saveInvoice()">حفظ الفاتورة</button>
+        <button onclick="printInvoice()">طباعة الفاتورة</button>
     </div>
+
     <script>
-        const invoiceItems = document.getElementById('invoice-items');
-        const dateElement = document.getElementById('invoice-date');
-        const subtotalElement = document.getElementById('subtotal');
-        const totalElement = document.getElementById('total');
-        
-        function updateDate() {
-            const now = new Date();
-            dateElement.textContent = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
-        }
+        document.querySelector('.add-row').addEventListener('click', function() {
+            let tbody = document.getElementById('invoiceBody');
+            let rows = tbody.getElementsByTagName('tr');
+            let row = rows[rows.length - 1].cloneNode(true);
+            let newRowNum = rows.length + 1;
+            row.children[0].innerText = newRowNum;
+            tbody.appendChild(row);
+            updateRemoveRowVisibility();
+            updateLineTotalForRow(row);
+        });
 
-        function calculateTotal() {
-            let subtotal = 0;
-            document.querySelectorAll('#invoice-items tr').forEach((row, index) => {
-                const quantity = parseInt(row.querySelector('.quantity').value, 10);
-                const price = parseFloat(row.querySelector('.price').value);
-                const totalCell = row.querySelector('.total');
-                const total = quantity * price;
-                totalCell.textContent = total;
-                subtotal += total;
-            });
-            subtotalElement.textContent = subtotal;
-            const tax = parseFloat(document.getElementById('tax').value) || 0;
-            const discount = parseFloat(document.getElementById('discount').value) || 0;
-            const totalTax = subtotal * tax / 100;
-            const total = subtotal + totalTax - discount;
-            totalElement.textContent = total;
-        }
-
-        function addItem() {
-            const rowCount = invoiceItems.rows.length + 1;
-            const newRow = document.createElement('tr');
-            newRow.innerHTML = `
-                <td>${rowCount}</td>
-                <td><input type="text" value="صنف جديد"></td>
-                <td><input type="text" value=""></td>
-                <td><input type="number" value="1" class="quantity"></td>
-                <td><input type="number" value="0" class="price"></td>
-                <td class="total">0</td>
-            `;
-            invoiceItems.appendChild(newRow);
-        }
-
-        function removeItem() {
-            if (invoiceItems.rows.length > 1) {
-                invoiceItems.deleteRow(invoiceItems.rows.length - 1);
+        function updateRemoveRowVisibility() {
+            let rows = document.getElementById('invoiceBody').rows;
+            for (let i = 0; i < rows.length; i++) {
+                if (rows.length > 1) {
+                    rows[i].lastElementChild.firstElementChild.classList.remove('hide');
+                } else {
+                    rows[i].lastElementChild.firstElementChild.classList.add('hide');
+                }
             }
         }
 
-        function saveInvoice() {
-            const invoiceData = [];
-            document.querySelectorAll('#invoice-items tr').forEach(row => {
-                const item = {
-                    product: row.cells[1].querySelector('input').value,
-                    description: row.cells[2].querySelector('input').value,
-                    quantity: row.cells[3].querySelector('input').value,
-                    price: row.cells[4].querySelector('input').value,
-                    total: row.cells[5].textContent
-                };
-                invoiceData.push(item);
-            });
-            window.localStorage.setItem('invoice', JSON.stringify(invoiceData));
+        document.getElementById('invoiceBody').addEventListener('input', function(e) {
+            if (e.target.classList.contains('quantity') || e.target.classList.contains('price')) {
+                updateLineTotalForRow(e.target.parentElement.parentElement);
+            }
+            updateGrandTotal();
+        });
+
+        document.getElementById('taxRate').addEventListener('input', updateGrandTotal);
+        document.getElementById('discount').addEventListener('input', updateGrandTotal);
+
+        document.getElementById('invoiceBody').addEventListener('click', function(e) {
+            if (e.target.classList.contains('remove-row')) {
+                e.target.parentElement.parentElement.remove();
+                updateRemoveRowVisibility();
+                updateGrandTotal();
+            }
+        });
+
+        function updateLineTotalForRow(row) {
+            let quantity = parseFloat(row.querySelector('.quantity').value);
+            let price = parseFloat(row.querySelector('.price').value);
+            let lineTotal = (quantity * price).toFixed(2);
+            row.querySelector('.line-total').innerText = lineTotal;
         }
 
-        function exportJSON() {
-            const data = window.localStorage.getItem('invoice');
-            const blob = new Blob([data], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'invoice.json';
-            a.click();
+        function updateGrandTotal() {
+            let rows = document.getElementById('invoiceBody').rows;
+            let total = 0;
+            for (let i = 0; i < rows.length; i++) {
+                total += parseFloat(rows[i].querySelector('.line-total').innerText);
+            }
+            let taxRate = parseFloat(document.getElementById('taxRate').value);
+            let discount = parseFloat(document.getElementById('discount').value);
+            total += total * (taxRate / 100);
+            total -= discount;
+            document.getElementById('grandTotal').innerText = total.toFixed(2);
+        }
+
+        function saveInvoice() {
+            let invoiceData = {
+                company: document.getElementById('companyName').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                address: document.getElementById('address').value,
+                date: document.getElementById('date').value,
+                items: []
+            };
+            let rows = document.getElementById('invoiceBody').rows;
+            for (let i = 0; i < rows.length; i++) {
+                invoiceData.items.push({
+                    itemName: rows[i].querySelector('.item-name').value,
+                    category: rows[i].querySelector('.category').value,
+                    quantity: parseFloat(rows[i].querySelector('.quantity').value),
+                    price: parseFloat(rows[i].querySelector('.price').value),
+                    total: parseFloat(rows[i].querySelector('.line-total').innerText)
+                });
+            }
+            localStorage.setItem('invoice-data', JSON.stringify(invoiceData));
+            alert('تم حفظ الفاتورة بنجاح!');
         }
 
         function printInvoice() {
             window.print();
         }
 
-        document.querySelectorAll('.quantity, .price, #tax, #discount').forEach(input => {
-            input.addEventListener('input', calculateTotal);
-        });
-
-        updateDate();
-        calculateTotal();
     </script>
 </body>
 </html>
