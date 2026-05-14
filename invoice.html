@@ -6,167 +6,142 @@
     <title>فاتورة معدات حاسوب</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
             background-color: #f4f4f9;
         }
-        .invoice-container {
+        .invoice {
             max-width: 800px;
             margin: auto;
             background: #fff;
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        .company-details {
-            margin-bottom: 20px;
+        .company-info {
+            text-align: center;
         }
-        .company-details input {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-            box-sizing: border-box;
+        .company-info h2 {
+            margin: 5px 0;
         }
         table {
             width: 100%;
+            margin-top: 20px;
             border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        table, th, td {
-            border: 1px solid #ddd;
         }
         th, td {
-            padding: 15px;
-            text-align: left;
-        }
-        .total-row td {
-            font-weight: bold;
-        }
-        .buttons {
+            border: 1px solid #ddd;
+            padding: 8px;
             text-align: center;
+        }
+        th {
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        .total {
+            text-align: right;
             margin-top: 20px;
         }
-        button {
-            padding: 10px 15px;
-            margin: 5px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
+        .total span {
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <div class="invoice-container">
-        <div class="company-details">
-            <input type="text" placeholder="اسم الشركة" id="companyName">
-            <input type="text" placeholder="هاتف" id="companyPhone">
-            <input type="text" placeholder="البريد الإلكتروني" id="companyEmail">
-            <input type="text" placeholder="العنوان" id="companyAddress">
-            <input type="date" id="invoiceDate">
+    <div class="invoice">
+        <div class="company-info">
+            <h2>اسم الشركة</h2>
+            <p>هاتف: 123456789</p>
+            <p>بريد: company@example.com</p>
+            <p>عنوان: 1234 شارع رئيسي، مدينة، دولة</p>
+            <p>التاريخ: <span id="invoiceDate">01/01/2022</span></p>
         </div>
 
-        <table>
+        <table id="invoiceTable">
             <thead>
                 <tr>
-                    <th>الفئة</th>
-                    <th>الكمية</th>
-                    <th>السعر</th>
+                    <th>كود</th>
+                    <th>صنف</th>
+                    <th>فئة</th>
+                    <th>كمية</th>
+                    <th>سعر الوحدة</th>
                     <th>الإجمالي</th>
-                    <th>حذف</th>
                 </tr>
             </thead>
-            <tbody id="itemsTable">
-                <tr>
-                    <td><input type="text" placeholder="الفئة"></td>
-                    <td><input type="number" min="0" placeholder="الكمية" class="quantity" oninput="calculateRowTotal(this)"></td>
-                    <td><input type="number" min="0" placeholder="السعر" class="price" oninput="calculateRowTotal(this)"></td>
-                    <td class="rowTotal">0</td>
-                    <td><button onclick="removeRow(this)">❌</button></td>
-                </tr>
+            <tbody>
+                <!-- Dynamic rows will go here -->
             </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="3">الإجمالي الكلي</td>
-                    <td id="grandTotal">0</td>
-                    <td></td>
-                </tr>
-            </tfoot>
         </table>
 
-        <div class="buttons">
-            <button onclick="addRow()">إضافة صنف</button>
-            <button onclick="saveInvoice()">حفظ الفاتورة</button>
-            <button onclick="printInvoice()">طباعة</button>
+        <div class="total">
+            الإجمالي الكلي: <span id="totalAmount">0</span> دينار
         </div>
     </div>
 
     <script>
-        function calculateRowTotal(input) {
-            let row = input.parentElement.parentElement;
-            let quantity = row.querySelector('.quantity').value;
-            let price = row.querySelector('.price').value;
-            let total = quantity * price;
-            row.querySelector('.rowTotal').innerText = total;
-            calculateGrandTotal();
+        const categories = ['شاشة', 'طابعة', 'لابتوب', 'ماوس'];
+        const invoiceTable = document.getElementById('invoiceTable').getElementsByTagName('tbody')[0];
+        let invoiceData = JSON.parse(localStorage.getItem('invoiceData')) || [];
+
+        function createRow(item = {code: '', name: '', category: '', quantity: 0, unitPrice: 0}) {
+            const row = invoiceTable.insertRow();
+
+            const cellCode = row.insertCell(0);
+            const cellName = row.insertCell(1);
+            const cellCategory = row.insertCell(2);
+            const cellQuantity = row.insertCell(3);
+            const cellUnitPrice = row.insertCell(4);
+            const cellTotal = row.insertCell(5);
+
+            cellCode.innerHTML = `<input type='text' value='${item.code}' />`;
+            cellName.innerHTML = `<input type='text' value='${item.name}' />`;
+            cellCategory.innerHTML = `<select>${categories.map(category => `<option value="${category}"${category === item.category ? ' selected' : ''}>${category}</option>`).join('')}</select>`;
+            cellQuantity.innerHTML = `<input type='number' value='${item.quantity}' min='0' step='1'/>`;
+            cellUnitPrice.innerHTML = `<input type='number' value='${item.unitPrice}' min='0' step='0.01'/>`;
+            cellTotal.innerHTML = `<span>${item.quantity * item.unitPrice}</span>`;
+
+            [cellQuantity, cellUnitPrice].forEach(cell => {
+                cell.getElementsByTagName('input')[0].addEventListener('input', updateTotal);
+            });
         }
 
-        function calculateGrandTotal() {
-            let rows = document.querySelectorAll('#itemsTable tr');
-            let total = 0;
-            rows.forEach(row => {
-                total += parseFloat(row.querySelector('.rowTotal').innerText);
+        function updateTotal() {
+            let totalAmount = 0;
+
+            Array.from(invoiceTable.rows).forEach(row => {
+                const quantity = row.cells[3].getElementsByTagName('input')[0].valueAsNumber || 0;
+                const unitPrice = row.cells[4].getElementsByTagName('input')[0].valueAsNumber || 0;
+                const total = quantity * unitPrice;
+                row.cells[5].getElementsByTagName('span')[0].textContent = total;
+                totalAmount += total;
             });
-            document.getElementById('grandTotal').innerText = total;
+
+            document.getElementById('totalAmount').textContent = totalAmount;
         }
 
         function addRow() {
-            let row = document.createElement('tr');
-            row.innerHTML = `
-                <td><input type="text" placeholder="الفئة"></td>
-                <td><input type="number" min="0" placeholder="الكمية" class="quantity" oninput="calculateRowTotal(this)"></td>
-                <td><input type="number" min="0" placeholder="السعر" class="price" oninput="calculateRowTotal(this)"></td>
-                <td class="rowTotal">0</td>
-                <td><button onclick="removeRow(this)">❌</button></td>
-            `;
-            document.getElementById('itemsTable').appendChild(row);
+            createRow();
+            invoiceData.push({code: '', name: '', category: '', quantity: 0, unitPrice: 0});
+            saveInvoiceData();
         }
 
-        function removeRow(button) {
-            let row = button.parentElement.parentElement;
-            row.remove();
-            calculateGrandTotal();
+        function removeRow(rowIndex) {
+            invoiceTable.deleteRow(rowIndex);
+            invoiceData.splice(rowIndex, 1);
+            saveInvoiceData();
+            updateTotal();
         }
 
-        function saveInvoice() {
-            let invoice = {
-                companyName: document.getElementById('companyName').value,
-                companyPhone: document.getElementById('companyPhone').value,
-                companyEmail: document.getElementById('companyEmail').value,
-                companyAddress: document.getElementById('companyAddress').value,
-                invoiceDate: document.getElementById('invoiceDate').value,
-                items: []
-            };
-            let rows = document.querySelectorAll('#itemsTable tr');
-            rows.forEach(row => {
-                let item = {
-                    category: row.querySelector('input[type="text"]').value,
-                    quantity: row.querySelector('.quantity').value,
-                    price: row.querySelector('.price').value,
-                    rowTotal: row.querySelector('.rowTotal').innerText
-                };
-                invoice.items.push(item);
-            });
-            localStorage.setItem('invoice', JSON.stringify(invoice));
-            alert('تم حفظ الفاتورة');
+        function saveInvoiceData() {
+            localStorage.setItem('invoiceData', JSON.stringify(invoiceData));
         }
 
-        function printInvoice() {
-            window.print();
+        function loadInvoiceData() {
+            invoiceData.forEach(createRow);
         }
+
+        document.getElementById('invoiceDate').textContent = new Date().toLocaleDateString();
+        loadInvoiceData();
     </script>
 </body>
 </html>
