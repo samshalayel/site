@@ -1,0 +1,18 @@
+<html>
+<head>
+    <title>Gaza Time</title>
+</head>
+<body>
+    <h1>Current Gaza Time</h1>
+    <p id="time"></p>
+    <script>
+        function updateTime() {
+            var options = {timeZone: 'Asia/Gaza', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false};
+            var formatter = new Intl.DateTimeFormat([], options);
+            document.getElementById('time').innerHTML = formatter.format(new Date());
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+    </script>
+</body>
+</html>
